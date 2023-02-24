@@ -24,8 +24,9 @@
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-
-                    @yield('content')
+                    <div id="app">
+                        @yield('content')
+                    </div>
 
                     <div class="content-backdrop fade"></div>
                 </div>

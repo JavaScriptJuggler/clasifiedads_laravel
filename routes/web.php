@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,14 @@ Route::prefix('admin')->group(function () {
 
     /* dashboard routes */
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+    /* ads route */
+    Route::controller(adsController::class)
+        ->as('ads.')
+        ->group(function () {
+            Route::get('/ads-list', 'adsList')->name('ads-list');
+            Route::post('/save-ads', 'saveAds')->name('save-ads');
+            Route::get('/get-ads', 'getAds')->name('get-ads');
+            Route::post('/get-search-results', 'getSearchResult');
+        });
 });
