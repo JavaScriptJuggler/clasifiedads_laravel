@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class adsModel extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'ads';
     protected $fillable = [
         'product_name',
@@ -25,5 +26,9 @@ class adsModel extends Model
         'price_condition',
         'price_condition_id',
         'date',
+        'user_id',
+        'user_type',
+        'seller_type',
+        'location',
     ];
 }

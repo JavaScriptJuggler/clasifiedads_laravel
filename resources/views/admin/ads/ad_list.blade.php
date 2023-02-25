@@ -13,12 +13,12 @@
                             </div>
                             <div>
                                 <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#categoryModal" aria-controls="offCanvasAdd"><i
-                                        class="bx bx-plus-circle"></i>
+                                    data-bs-target="#categoryModal" aria-controls="offCanvasAdd"
+                                    onclick="addCategoryClick()"><i class="bx bx-plus-circle"></i>
                                     Add Category</button>
                                 <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
-                                    aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
+                                    data-bs-toggle="modal" data-bs-target="#subCategoryModal" aria-controls="offCanvasAdd"
+                                    onclick="addSubCatClick()"><i class="bx bx-plus-circle"></i>
                                     Add Sub Category</button>
                                 <button class="btn btn-primary m-2" style="float:right" type="button"
                                     data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
@@ -45,6 +45,16 @@
                         placeholder="Product Name" />
                 </div>
                 <div class="col mb-3">
+                    <label for="nameWithTitle" class="form-label">Seller Type</label>
+                    <input type="text" id="seller_type" name="seller_type" readonly required class="form-control"
+                        placeholder="Seller Type" value="Personal" />
+                </div>
+                <div class="col mb-3">
+                    <label for="nameWithTitle" class="form-label">Location</label>
+                    <input type="text" id="location" name="location" required class="form-control"
+                        placeholder="Location" />
+                </div>
+                <div class="col mb-3">
                     <label for="nameWithTitle" class="form-label">Product Image</label>
                     <input type="file" id="product_image" name="image" accept="image/png, image/jpg, image/jpeg"
                         required class="form-control" placeholder="Product Image" />
@@ -57,8 +67,8 @@
                     </div>
                     <input type="text" name="productCategoryText" id="productCategoryText" class="form-control d-none"
                         placeholder="Enter Product Category">
-                    <select id="productCategorySelect" name='productCategorySelect' required="required"
-                        class="form-control">
+                    <select id="productCategorySelect" name='productCategorySelect' onchange="onCategorySelectChange(this)"
+                        required="required" class="form-control">
                         <option style="display:none" value="">Product Category</option>
                         @if (count($product_category) > 0)
                             @foreach ($product_category as $item)
@@ -75,11 +85,12 @@
                     </div>
                     <input type="text" name="productSubCategoryText" id="productSubCategoryText"
                         class="form-control d-none" placeholder="Enter Product Sub Category">
-                    <select name="productSubCategorySelect" id="productSubCategorySelect" required class="form-control">
+                    <select name="productSubCategorySelect" disabled id="productSubCategorySelect" required
+                        class="form-control">
                         <option style="display:none" value="">Product Sub Category</option>
                         @if (count($product_sub_category) > 0)
                             @foreach ($product_sub_category as $item)
-                                <option>{{ $item->sub_category_name }}</option>
+                                <option data-category="{{ $item->category_name }}">{{ $item->sub_category_name }}</option>
                             @endforeach
                         @endif
 
@@ -153,7 +164,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalCenterTitle">Add/Edit Category</h5>
+                    <h5 class="modal-title" id="modalCenterTitle">Add/Edit Categories</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -165,39 +176,125 @@
                         </div>
                     </div>
                     <div class="row g-2">
-                        <table class="table table-stripped">
-                            <thead>
-                                <tr>
-                                    <td>Category Name</td>
-                                    <td>Action</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (count($product_category) > 0)
-                                    @foreach ($product_category as $item)
-                                        <tr>
-                                            <td>{{ $item->category_name }}</td>
-                                            <td>
-                                                <button class="btn btn-warning btn-sm m-1"><i class="bx bx-edit-alt"></i></button>
-                                                <button class="btn btn-danger btn-sm m-1"><i class="bx bx-trash-alt"></i></button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+                        <div style="height:16rem;overflow-y: auto">
+                            <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <td>Category Name</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (count($product_category) > 0)
+                                        @foreach ($product_category as $item)
+                                            <tr>
+                                                <td>{{ $item->category_name }}</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm m-1"
+                                                        onclick="editCategory('{{ $item->id }}','{{ $item->category_name }}')"><i
+                                                            class="bx bx-edit-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm m-1"
+                                                        onclick="deleteCategory('{{ $item->id }}','{{ $item->category_name }}')"><i
+                                                            class="bx bx-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary update-category" onclick="submitCategroy(this)"
+                        data-record_id=''>Add Category</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="subCategoryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">Add/Edit Sub Categories</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameWithTitle" class="form-label">Category Name</label>
+                            <select name="subCategory" id="categorySubCategoryModel" class="form-control"
+                                onchange="categoryChangeOnSubCatModal(this)">
+                                <option value="">Select Category</option>
+                                @if (count($product_category) > 0)
+                                    @foreach ($product_category as $item)
+                                        <option>{{ $item->category_name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="nameWithTitle" class="form-label">Sub Category Name</label>
+                            <input type="text" disabled id="subCategoryTextModel" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div style="height:16rem;overflow-y: auto">
+                            <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <td>Category Name</td>
+                                        <td>Sub-Category Name</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (count($product_sub_category) > 0)
+                                        @foreach ($product_sub_category as $item)
+                                            <tr>
+                                                <td>{{ $item->category_name }}</td>
+                                                <td>{{ $item->sub_category_name }}</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm m-1"
+                                                        onclick="editSubCategory('{{ $item->id }}','{{ $item->sub_category_name }}','{{ $item->categegory_id }}','{{ $item->category_name }}')"><i
+                                                            class="bx bx-edit-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm m-1"
+                                                        onclick="deleteSubCategory('{{ $item->id }}','{{ $item->sub_category_name }}','{{ $item->categegory_id }}','{{ $item->category_name }}')"><i
+                                                            class="bx bx-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary update-sub-category" onclick="submitSubCategroy(this)"
+                        data-subcatid='' data-subcatname='' data-catid="" data-catname="">Add Sub Category</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        const onCategorySelectChange = (element) => {
+            if ($(element).val() != '') {
+                let category = $(element).val();
+                $('#productSubCategorySelect option').hide();
+                $('#productSubCategorySelect option[data-category="' + category + '"]').show();
+                $('#productSubCategorySelect').removeAttr('disabled');
+            }
+        }
+
         const toggleCategory = () => {
             $('#productCategorySelect').toggleClass('d-none');
             $('#productCategoryText').toggleClass('d-none');
@@ -283,7 +380,7 @@
                 formData.append('adsCategoryColor', $('#adsCategoryColor').val());
             }
             holdOn('Saving Ad.. Please Wait')
-            axios.post('{{ route('ads.save-ads') }}', formData)
+            axios.post('{{ url('admin/save-ads') }}', formData)
                 .then(function(response) {
                     closeHoldOn();
                     if (response.data.status == 1) {
@@ -296,5 +393,115 @@
                 })
                 .catch(function(error) {})
         });
+
+        const editCategory = (id, categoryName) => {
+            $('.update-category').data('record_id', id).text('Update Category');
+            $('#categoryNameModal').val(categoryName);
+        }
+
+        const addCategoryClick = () => {
+            $('.update-category').data('record_id', '').text('Add Category');
+            $('#categoryNameModal').val('');
+        }
+
+        const submitCategroy = (element) => {
+            if ($('#categoryNameModal').val() != '') {
+                holdOn('Updating Product Category... Please Wait')
+                data = {
+                    recordId: $(element).data('record_id'),
+                    category_name: $('#categoryNameModal').val(),
+                }
+                axios.post('{{ url('admin/update-product-category') }}', data)
+                    .then((response) => {
+                        closeHoldOn();
+                        if (response.data.status) {
+                            showToast('Success', response.data.message, 'success', true, 'green');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        } else {
+                            showToast('Error !!!', response.data.message, 'error', true, 'red');
+                        }
+                    })
+                    .catch((error) => {})
+            } else {
+                showToast('Error !!!', 'Please Enter Category', 'error', true, 'red');
+            }
+        }
+
+        const deleteCategory = (id, categoryName) => {
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, You can recover it..",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        axios.post('{{ url('admin/delete-category') }}', {
+                                recordId: id,
+                            })
+                            .then((response) => {
+                                if (response.data.status) {
+                                    showToast('Success', response.data.message, 'success', true, 'green');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 3000);
+                                }
+                            })
+                            .catch((error) => {})
+                    }
+                });
+        }
+
+        const categoryChangeOnSubCatModal = (element) => {
+            if ($(element).val() != '') {
+                $('#subCategoryTextModel').removeAttr('disabled');
+                $('.update-sub-category').data('subcatname', $('#subCategoryTextModel').val()).data(
+                    'catname', $('#categorySubCategoryModel').val()).text('Add Sub Category');
+            } else {
+                $('#subCategoryTextModel').attr('disabled', 'disabled');
+            }
+        }
+
+        const addSubCatClick = () => {
+            $('.update-sub-category').data('subcatid', '').data('subcatname', '').data('catid', '').data(
+                'catname', '').text('Add Sub Category');
+            $('#subCategoryTextModel').attr('disabled', 'disabled').val('');
+            $('#categorySubCategoryModel').val('');
+        }
+        const editSubCategory = (id, subCatName, catId, categoryName) => {
+            $('#categorySubCategoryModel').val(categoryName);
+            $('#subCategoryTextModel').removeAttr('disabled').val(subCatName);
+            $('.update-sub-category').data('subcatid', id).data('subcatname', subCatName).data('catid', catId).data(
+                'catname', categoryName).text('Update Sub Category');
+        }
+        const submitSubCategroy = (element) => {
+            if ($(element).data('catname') != '' && $('#subCategoryTextModel').val() != '') {
+                holdOn();
+                let data = {
+                    "subCatId": $(element).data('subcatid'),
+                    "subCatName": $('#subCategoryTextModel').val(),
+                    "catId": $(element).data('catid'),
+                    "catName": $(element).data('catname'),
+                }
+                axios.post("{{ url('admin/update-product-sub-category') }}", data)
+                    .then((response) => {
+                        closeHoldOn();
+                        if (response.data.status) {
+                            showToast('Success', response.data.message, 'success', true, 'green');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        } else {
+                            showToast('Error !!!', response.data.message, 'error', true, 'red');
+                        }
+                    })
+                    .catch((error) => {})
+            } else {
+                showToast('Error !!!', 'Category & Sub-Category Cannot Br Empty', 'error', true, 'red');
+            }
+        }
     </script>
 @endsection

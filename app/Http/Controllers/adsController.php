@@ -8,6 +8,7 @@ use App\Models\priceConditionModel;
 use App\Models\productCategoryModel;
 use App\Models\productSubCategoryModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class adsController extends Controller
 {
@@ -105,6 +106,10 @@ class adsController extends Controller
             'price_condition' => $request->priceCondition,
             'price_condition_id' => $priceConditionId,
             'date' => date('Y-m-d'),
+            'user_id' => Auth::id(),
+            'user_type' => Auth::user()->user_type,
+            'seller_type' => $request->seller_type,
+            'location' => $request->location,
         ];
 
         $isSaved =  adsModel::create($dataArray)->save();
@@ -117,7 +122,7 @@ class adsController extends Controller
     /* get all ads */
     public function getAds()
     {
-        $adsDetails = adsModel::all();
+        $adsDetails = adsModel::orderBy('id', 'desc')->get();
         return response()->json([
             'status' => true,
             'message' => 'Data Fetched Successfully',
@@ -145,12 +150,115 @@ class adsController extends Controller
             $ads->where('date', 'LIKE', '%' . $request->date . '%');
         if ($request->ad_category != null && $request->ad_category != '')
             $ads->where('ad_category', 'LIKE', '%' . $request->ad_category . '%');
-        $data = $ads->get();
+        $data = $ads->orderBy('id', 'desc')->get();
 
         return response()->json([
             "status" => true,
             "message" => "filtered Successfully",
             "details" => $data,
         ]);
+    }
+
+    /* update product category or ad category */
+    public function updateProductCategory(Request $request)
+    {
+        if ($request->has('recordId') && $request->recordId != '') {
+            $flag = true;
+            $getCategoy = productCategoryModel::find($request->recordId);
+            $getCategoy->category_name = $request->category_name;
+            $isSuccess = $getCategoy->save();
+            if ($isSuccess) {
+                $updateInAds = adsModel::where('product_category_id', $request->recordId)->update([
+                    'product_category' => $request->category_name,
+                ]);
+                if ($updateInAds) {
+                    $updateInSubCategory = productSubCategoryModel::where('categegory_id', $request->recordId)->update([
+                        'category_name' => $request->category_name,
+                    ]);
+                    if (!$updateInSubCategory) {
+                        $flag = false;
+                        return response()->json([
+                            "status" => $flag,
+                            "message" => 'Something Went Wrong.. Please Contact With Developer',
+                        ]);
+                    }
+                } else {
+                    $flag = false;
+                    return response()->json([
+                        "status" => $flag,
+                        "message" => 'Something Went Wrong.. Please Contact With Developer',
+                    ]);
+                }
+            } else {
+                $flag = false;
+                return response()->json([
+                    "status" => $flag,
+                    "message" => 'Something Went Wrong.. Please Contact With Developer',
+                ]);
+            }
+
+            return response()->json([
+                "status" => $flag,
+                "message" => $flag ? 'Category Updated Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+            ]);
+        } else {
+            $find = productCategoryModel::where('category_name', $request->category_name)->first();
+            if (empty($find)) {
+                $issuccess = productCategoryModel::create([
+                    'category_name' => $request->category_name,
+                ])->save();
+                return response()->json([
+                    "status" => $issuccess,
+                    "message" => $issuccess ? 'Category Created Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+                ]);
+            } else {
+                return response()->json([
+                    "status" => false,
+                    "message" => 'Category Already Exists',
+                ]);
+            }
+        }
+    }
+
+    /* delete product category */
+
+    public function deleteProductCategory(Request $request)
+    {
+        if ($request->has('recordId') && $request->recordId != '') {
+            $is_success = productCategoryModel::find($request->recordId)->delete();
+            return response()->json([
+                "status" => $is_success,
+                "message" => $is_success ? 'Category Deleted Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+            ]);
+        }
+    }
+
+    /* update product category */
+    public function updateProductSubCategory(Request $request)
+    {
+        $isRecordExist = productSubCategoryModel::find($request->subCatId);
+        if (empty($isRecordExist)) {
+            $is_success = productSubCategoryModel::create([
+                'sub_category_name' => $request->subCatName,
+                'category_name' => $request->catName,
+                'categegory_id' => productCategoryModel::where('category_name', $request->catName)->first()->id,
+            ])->save();
+            return response()->json([
+                "status" => $is_success,
+                "message" => $is_success ? 'Sub Category Created Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+            ]);
+        } else {
+            $isRecordExist->sub_category_name = $request->subCatName;
+            $isSuccess = $isRecordExist->save();
+            if ($isSuccess) {
+                $adsEntry = adsModel::where('product_category_id', $request->catId)->where('product_subcategory_id', $request->subCatId)->update([
+                    'product_sub_category' => $request->subCatName,
+                ]);
+                return response()->json([
+                    "status" => $adsEntry ? true : false,
+                    "message" => $adsEntry ? 'Sub Category Updated Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+                ]);
+            }
+        }
     }
 }

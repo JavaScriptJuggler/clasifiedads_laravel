@@ -9,6 +9,7 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="{{ asset('assets/js/holdon.min.js') }}"></script>
 <script src="{{ asset('assets/js/toast.min.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {{-- <script src="{{ asset('assets/js/extended-ui-perfect-scrollbar.js') }}"></script> --}}
 
 <script>
