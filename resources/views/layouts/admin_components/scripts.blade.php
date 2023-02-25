@@ -12,6 +12,7 @@
 <script src="{{ asset('assets/js/toast.min.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src={{ asset('js/app.js') }}></script>
 {{-- <script src="{{ asset('assets/js/extended-ui-perfect-scrollbar.js') }}"></script> --}}
 
 <script>
