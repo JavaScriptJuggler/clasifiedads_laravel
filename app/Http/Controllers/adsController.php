@@ -238,15 +238,27 @@ class adsController extends Controller
     {
         $isRecordExist = productSubCategoryModel::find($request->subCatId);
         if (empty($isRecordExist)) {
-            $is_success = productSubCategoryModel::create([
+            $findIfExist = productSubCategoryModel::where([
                 'sub_category_name' => $request->subCatName,
                 'category_name' => $request->catName,
                 'categegory_id' => productCategoryModel::where('category_name', $request->catName)->first()->id,
-            ])->save();
-            return response()->json([
-                "status" => $is_success,
-                "message" => $is_success ? 'Sub Category Created Successfully' : 'Something Went Wrong.. Please Contact With Developer',
-            ]);
+            ])->first();
+            if (empty($findIfExist)) {
+                $is_success = productSubCategoryModel::create([
+                    'sub_category_name' => $request->subCatName,
+                    'category_name' => $request->catName,
+                    'categegory_id' => productCategoryModel::where('category_name', $request->catName)->first()->id,
+                ])->save();
+                return response()->json([
+                    "status" => $is_success,
+                    "message" => $is_success ? 'Sub Category Created Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+                ]);
+            } else {
+                return response()->json([
+                    "status" => false,
+                    "message" => 'Same Sub-Category Already Exists For this Category',
+                ]);
+            }
         } else {
             $isRecordExist->sub_category_name = $request->subCatName;
             $isSuccess = $isRecordExist->save();
@@ -260,5 +272,15 @@ class adsController extends Controller
                 ]);
             }
         }
+    }
+
+    /* delete sub category */
+    public function deleteProductSubCategory(Request $request)
+    {
+        productSubCategoryModel::find($request->id)->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'SubCategory Deleted Successfully',
+        ]);
     }
 }

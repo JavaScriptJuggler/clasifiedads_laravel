@@ -57,8 +57,8 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
-            <a href="index.html" class="menu-link">
+        <li class="menu-item {{ \Request::is('admin/dashboard') ? 'active open' : '' }}">
+            <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -103,24 +103,24 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Management</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ \Request::is('admin/ads-list') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Ads Management</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{route('ads.ads-list')}}" class="menu-link">
+                <li class="menu-item {{ \Request::is('admin/ads-list') ? 'active' : '' }}">
+                    <a href="{{ route('ads.ads-list') }}" class="menu-link">
                         <div data-i18n="Account">All Ads</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
+                    <a href="javascript:;" class="menu-link">
                         <div data-i18n="Notifications">Ads Request</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
+                    <a href="javascript:;" class="menu-link">
                         <div data-i18n="Connections">Ads Display</div>
                     </a>
                 </li>

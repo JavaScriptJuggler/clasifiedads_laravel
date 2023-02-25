@@ -36,5 +36,6 @@ Route::prefix('admin')->group(function () {
             Route::post('/update-product-category', 'updateProductCategory');
             Route::post('/update-product-sub-category', 'updateProductSubCategory');
             Route::post('/delete-category', 'deleteProductCategory');
+            Route::post('/delete-sub-category', 'deleteProductSubCategory');
         });
 });

@@ -500,8 +500,33 @@
                     })
                     .catch((error) => {})
             } else {
-                showToast('Error !!!', 'Category & Sub-Category Cannot Br Empty', 'error', true, 'red');
+                showToast('Error !!!', 'Category & Sub-Category Cannot Be Empty', 'error', true, 'red');
             }
+        }
+        const deleteSubCategory = (id, subCategoryName, categoryId, categoryName) => {
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, You can recover it..",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        axios.post('{{ url('admin/delete-sub-category') }}', {
+                                id: id,
+                            })
+                            .then((response) => {
+                                if (response.data.status) {
+                                    showToast('Success', response.data.message, 'success', true, 'green');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 3000);
+                                }
+                            })
+                            .catch((error) => {})
+                    }
+                });
         }
     </script>
 @endsection
