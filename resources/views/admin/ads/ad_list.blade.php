@@ -164,7 +164,7 @@
                 <div class="col mb-3">
                     <label for="emailWithTitle" class="form-label">Unit</label>
                     <select name="unit" required id="unit" class="form-control">
-                        <option value="">Select Unit</option>
+                        <option value="" style="display:none">Select Unit</option>
                         <option>On Call</option>
                         <option>One Time</option>
                         <option>Per Unit</option>
@@ -192,7 +192,7 @@
                 <div class="col mb-3">
                     <label for="emailWithTitle" class="form-label">Payment Mode</label>
                     <select name="payment_mode" id="payment_mode" required class="form-control">
-                        <option value="">Select Payment Mode</option>
+                        <option value="" style="display:none">Select Payment Mode</option>
                         <option>UPI</option>
                         <option>Credit/Debit Cards</option>
                         <option>Cash</option>
