@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 include('frontend-routes/frontend-web.php');
 
+/* auth routes */
+Auth::routes();
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
 
-        /* auth routes */
-        Auth::routes(['register' => false]);
 
         /* dashboard routes */
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
