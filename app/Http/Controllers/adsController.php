@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\adsCategoryModel;
 use App\Models\adsModel;
+use App\Models\CitiesModel;
 use App\Models\priceConditionModel;
 use App\Models\productCategoryModel;
 use App\Models\productSubCategoryModel;
@@ -27,6 +28,7 @@ class adsController extends Controller
             'product_sub_category' => productSubCategoryModel::all(),
             'price_conditions' => priceConditionModel::all(),
             'ads_category' => adsCategoryModel::all(),
+            'cities' => CitiesModel::all(),
         ]);
         return view('admin.ads.ad_list');
     }
@@ -110,6 +112,8 @@ class adsController extends Controller
             'user_type' => Auth::user()->user_type,
             'seller_type' => $request->seller_type,
             'location' => $request->location,
+            'city_id' => $request->city,
+            'city_name' => CitiesModel::find($request->city)->city_name,
         ];
 
         $isSaved =  adsModel::create($dataArray)->save();
@@ -282,5 +286,44 @@ class adsController extends Controller
             'status' => true,
             'message' => 'SubCategory Deleted Successfully',
         ]);
+    }
+
+    /* add edit city */
+    public function updateCity(Request $request)
+    {
+        if ($request->cityid == '') {
+            $isSuccess = CitiesModel::create([
+                'city_name' => $request->cityname,
+            ])->save();
+            return response()->json([
+                'status' => $isSuccess,
+                'message' => $isSuccess ? 'City Created Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+            ]);
+        } else {
+            $getCity = CitiesModel::find($request->cityid);
+            if (!empty($getCity)) {
+                $getCity->city_name = $request->cityname;
+                if ($getCity->save()) {
+                    $isSuccess =  adsModel::where('city_id', $request->cityid)->update([
+                        'city_name' => $request->cityname,
+                    ]);
+                    if ($isSuccess) {
+                        return response()->json([
+                            'status' => true,
+                            'message' => 'City Updated Successfully',
+                        ]);
+                    } else
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Something Went Wrong.. Please Contact With Developer',
+                        ]);
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Something Went Wrong.. Please Contact With Developer',
+                    ]);
+                }
+            }
+        }
     }
 }

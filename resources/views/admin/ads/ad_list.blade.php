@@ -12,18 +12,22 @@
                                 <h5 class="mb-0">Ads List</h5>
                             </div>
                             <div>
-                                <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#categoryModal" aria-controls="offCanvasAdd"
+                                <button class="btn btn-primary m-2" style="float:right" type="button"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
+                                    aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
+                                    Add New Ad</button>
+                                <button class="btn btn-primary m-2" style="float:right" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#cityModal" aria-controls="offCanvasAdd"
+                                    onclick="addCity()"><i class="bx bx-plus-circle"></i>
+                                    Add City</button>
+                                <button class="btn btn-primary m-2" style="float:right" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#categoryModal" aria-controls="offCanvasAdd"
                                     onclick="addCategoryClick()"><i class="bx bx-plus-circle"></i>
                                     Add Category</button>
                                 <button class="btn btn-primary m-2" style="float:right" type="button"
                                     data-bs-toggle="modal" data-bs-target="#subCategoryModal" aria-controls="offCanvasAdd"
                                     onclick="addSubCatClick()"><i class="bx bx-plus-circle"></i>
                                     Add Sub Category</button>
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
-                                    aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
-                                    Add New Ad</button>
                             </div>
                         </div>
                     </div>
@@ -50,6 +54,17 @@
                         placeholder="Seller Type" value="Personal" />
                 </div>
                 <div class="col mb-3">
+                    <label for="nameWithTitle" class="form-label">Cities</label>
+                    <select name="city" id="cities" class="form-control" required>
+                        <option value="" style="display:none">Select City</option>
+                        @if (count($cities) > 0)
+                            @foreach ($cities as $item)
+                                <option value="{{ $item->id }}">{{ $item->city_name }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+                <div class="col mb-3">
                     <label for="nameWithTitle" class="form-label">Location</label>
                     <input type="text" id="location" name="location" required class="form-control"
                         placeholder="Location" />
@@ -65,10 +80,10 @@
                         <button class="btn btn-sm" type="button" onclick="toggleCategory()"><i
                                 class="bx bx-plus-circle"></i></button>
                     </div>
-                    <input type="text" name="productCategoryText" id="productCategoryText" class="form-control d-none"
-                        placeholder="Enter Product Category">
-                    <select id="productCategorySelect" name='productCategorySelect' onchange="onCategorySelectChange(this)"
-                        required="required" class="form-control">
+                    <input type="text" name="productCategoryText" id="productCategoryText"
+                        class="form-control d-none" placeholder="Enter Product Category">
+                    <select id="productCategorySelect" name='productCategorySelect'
+                        onchange="onCategorySelectChange(this)" required="required" class="form-control">
                         <option style="display:none" value="">Product Category</option>
                         @if (count($product_category) > 0)
                             @foreach ($product_category as $item)
@@ -215,8 +230,6 @@
             </div>
         </div>
     </div>
-
-
     <div class="modal fade" id="subCategoryModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -285,6 +298,64 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="cityModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">Add/Edit Cities</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameWithTitle" class="form-label">City Name</label>
+                            <input type="text" id="cityTextInput" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div style="height:16rem;overflow-y: auto">
+                            <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <td>City Name</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (count($cities) > 0)
+                                        @foreach ($cities as $item)
+                                            <tr>
+                                                <td>{{ $item->city_name }}</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm m-1"
+                                                        onclick="editCity('{{ $item->id }}','{{ $item->city_name }}')"><i
+                                                            class="bx bx-edit-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm m-1"
+                                                        onclick="deleteCity('{{ $item->id }}','{{ $item->city_name }}')"><i
+                                                            class="bx bx-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary update-city" onclick="submitCity(this)" data-cityid=''
+                        data-cityname=''>Add City</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script>
         const onCategorySelectChange = (element) => {
             if ($(element).val() != '') {
@@ -527,6 +598,40 @@
                             .catch((error) => {})
                     }
                 });
+        }
+
+        const addCity = () => {
+            $('.update-city').data('cityid', '').data('cityname', '').text('Add City');
+            $('#cityTextInput').val();
+        }
+
+        const editCity = (cityId, cityName) => {
+            $('.update-city').data('cityid', cityId).data('cityname', cityName).text('Update City');
+            $('#cityTextInput').val(cityName);
+        }
+
+        const submitCity = (element) => {
+            if ($('#cityTextInput').val() != '') {
+                let data = {
+                    'cityid': $(element).data('cityid'),
+                    'cityname': $('#cityTextInput').val(),
+                }
+                axios.post("{{ url('admin/update-city') }}", data)
+                    .then((response) => {
+                        closeHoldOn();
+                        if (response.data.status) {
+                            showToast('Success', response.data.message, 'success', true, 'green');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        } else {
+                            showToast('Error !!!', response.data.message, 'error', true, 'red');
+                        }
+                    })
+                    .catch((error) => {})
+            } else {
+                showToast('Error !!!', 'City Cannot Be Empty', 'error', true, 'red');
+            }
         }
     </script>
 @endsection
