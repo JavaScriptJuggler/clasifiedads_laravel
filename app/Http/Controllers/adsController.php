@@ -128,7 +128,7 @@ class adsController extends Controller
     /* get all ads */
     public function getAds()
     {
-        $adsDetails = adsModel::orderBy('id', 'desc')->paginate();
+        $adsDetails = adsModel::orderBy('id', 'desc')->paginate(10);
         return response()->json([
             'status' => true,
             'message' => 'Data Fetched Successfully',
