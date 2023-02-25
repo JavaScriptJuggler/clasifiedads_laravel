@@ -20,9 +20,8 @@ include('frontend-routes/frontend-web.php');
 
 /* auth routes */
 Auth::routes();
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+Route::middleware(['auth'/* , 'user-access:admin' */])->group(function () {
     Route::prefix('admin')->group(function () {
-
 
         /* dashboard routes */
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
