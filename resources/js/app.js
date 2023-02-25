@@ -5,7 +5,6 @@
  */
 
 import './bootstrap';
-import '../css/app.css'
 import { createApp } from 'vue';
 import 'vue-loading-overlay/dist/css/index.css';
 /**
