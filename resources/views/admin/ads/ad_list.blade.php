@@ -354,8 +354,6 @@
         </div>
     </div>
 
-
-
     <script>
         const onCategorySelectChange = (element) => {
             if ($(element).val() != '') {
@@ -644,7 +642,7 @@
         const submitCity = (element) => {
             let data = {
                 'cityid': $(element).data('cityid'),
-                'cityname':$('#cityTextInput').val(),
+                'cityname': $('#cityTextInput').val(),
             }
             axios.post("{{ url('admin/update-city') }}", data)
                 .then((response) => {
