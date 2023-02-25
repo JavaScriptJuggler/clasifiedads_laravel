@@ -126,7 +126,7 @@ class adsController extends Controller
     /* get all ads */
     public function getAds()
     {
-        $adsDetails = adsModel::orderBy('id', 'desc')->get();
+        $adsDetails = adsModel::orderBy('id', 'desc')->paginate(10);
         return response()->json([
             'status' => true,
             'message' => 'Data Fetched Successfully',
@@ -154,7 +154,7 @@ class adsController extends Controller
             $ads->where('date', 'LIKE', '%' . $request->date . '%');
         if ($request->ad_category != null && $request->ad_category != '')
             $ads->where('ad_category', 'LIKE', '%' . $request->ad_category . '%');
-        $data = $ads->orderBy('id', 'desc')->get();
+        $data = $ads->orderBy('id', 'desc')->paginate(10);
 
         return response()->json([
             "status" => true,

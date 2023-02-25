@@ -102,7 +102,7 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-              <tr :key="ad.id" v-for="ad in gettingDataOnLoad.adsListData">
+              <tr :key="ad.id" v-for="ad in gettingDataOnLoad.adsListData.data">
                 <td>
                   <i class="fab fa-angular fa-lg text-danger me-3"></i>
                   <strong>{{ad.product_name}}</strong>
@@ -132,10 +132,12 @@
         </div>
       </div>
     </div>
+    <Bootstrap5Pagination align="center" :data="gettingDataOnLoad.adsListData" @pagination-change-page="list"></Bootstrap5Pagination>
   </div>
 </template>
 <script>
 import Loading from "vue-loading-overlay";
+import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 export default {
   name: "adsList",
   data() {
@@ -158,32 +160,29 @@ export default {
     };
   },
   components: {
-    Loading
+    Loading,
+    Bootstrap5Pagination,
   },
   created() {
-    this.getAllAds();
+    this.list();
   },
   mounted() {},
   methods: {
-    getAllAds() {
-      this.isLoading = true;
-      axios
-        .get("/admin/get-ads", {})
+    async list(page = 1) {
+      await axios
+        .get(`/admin/get-ads?page=${page}`)
         .then(response => {
-          if (response.data.status) {
-            this.gettingDataOnLoad.adsListData = response.data.details;
-            this.gettingDataOnLoad.categories = response.data.product_category;
-            this.gettingDataOnLoad.subCategories =
-              response.data.product_sub_category;
-            this.gettingDataOnLoad.productConditions =
-              response.data.price_conditions;
-            this.gettingDataOnLoad.adsCategories = response.data.ads_category;
-            this.isLoading = false;
-            console.log(this.gettingDataOnLoad)
-          }
+          this.gettingDataOnLoad.adsListData = response.data.details;
+          this.gettingDataOnLoad.categories = response.data.product_category;
+          this.gettingDataOnLoad.subCategories =
+            response.data.product_sub_category;
+          this.gettingDataOnLoad.productConditions =
+            response.data.price_conditions;
+          this.gettingDataOnLoad.adsCategories = response.data.ads_category;
+          this.isLoading = false;
         })
-        .catch(error => {
-          console.log(error);
+        .catch(({ response }) => {
+          console.error(response);
         });
     },
 
