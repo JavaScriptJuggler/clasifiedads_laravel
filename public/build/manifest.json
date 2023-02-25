@@ -4,6 +4,10 @@
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/js/app.css": {
+    "file": "assets/app-980189cf.css",
+    "src": "resources/js/app.css"
+  },
   "resources/js/app.js": {
     "css": [
       "assets/app-980189cf.css"
