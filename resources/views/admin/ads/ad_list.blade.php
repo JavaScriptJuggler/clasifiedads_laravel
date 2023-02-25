@@ -479,7 +479,7 @@
         }
         const submitSubCategroy = (element) => {
             if ($(element).data('catname') != '' && $('#subCategoryTextModel').val() != '') {
-                holdOn();
+                holdOn("Updating Product Sub-Category... Please Wait");
                 let data = {
                     "subCatId": $(element).data('subcatid'),
                     "subCatName": $('#subCategoryTextModel').val(),
