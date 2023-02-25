@@ -114,6 +114,8 @@ class adsController extends Controller
             'location' => $request->location,
             'city_id' => $request->city,
             'city_name' => CitiesModel::find($request->city)->city_name,
+            'units' => $request->unit,
+            'payment_mode' => $request->payment_mode,
         ];
 
         $isSaved =  adsModel::create($dataArray)->save();

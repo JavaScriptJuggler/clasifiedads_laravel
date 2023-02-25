@@ -162,6 +162,46 @@
                     </select>
                 </div>
                 <div class="col mb-3">
+                    <label for="emailWithTitle" class="form-label">Unit</label>
+                    <select name="unit" required id="unit" class="form-control">
+                        <option value="">Select Unit</option>
+                        <option>On Call</option>
+                        <option>One Time</option>
+                        <option>Per Unit</option>
+                        <option>Per Piece</option>
+                        <option>Per Box</option>
+                        <option>Per Bottle</option>
+                        <option>Per Gram</option>
+                        <option>Per Kilogram</option>
+                        <option>Per Pound</option>
+                        <option>Per Liter</option>
+                        <option>Per Meter</option>
+                        <option>Per Centimeter</option>
+                        <option>Per Foot</option>
+                        <option>Per Inch</option>
+                        <option>Per Ton</option>
+                        <option>Per Gallon</option>
+                        <option>Per Hour</option>
+                        <option>Per Day</option>
+                        <option>Per Week</option>
+                        <option>Per Month</option>
+                        <option>Per Year</option>
+                        <option>Per Visit</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
+                    <label for="emailWithTitle" class="form-label">Payment Mode</label>
+                    <select name="payment_mode" id="payment_mode" required class="form-control">
+                        <option value="">Select Payment Mode</option>
+                        <option>UPI</option>
+                        <option>Credit/Debit Cards</option>
+                        <option>Cash</option>
+                        <option>COD</option>
+                        <option>Electronic Bank Transfers</option>
+                        <option>Digital/Mobile Wallet</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
                     <textarea name="description" required class="form-control" id="" cols="30" rows="5"
                         placeholder="Product Description"></textarea>
                 </div>

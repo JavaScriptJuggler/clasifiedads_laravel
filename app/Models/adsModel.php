@@ -32,5 +32,7 @@ class adsModel extends Model
         'location',
         'city_id',
         'city_name',
+        'units',
+        'payment_mode',
     ];
 }
