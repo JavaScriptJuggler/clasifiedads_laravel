@@ -304,19 +304,13 @@ class adsController extends Controller
             if (!empty($getCity)) {
                 $getCity->city_name = $request->cityname;
                 if ($getCity->save()) {
-                    $isSuccess =  adsModel::where('city_id', $request->cityid)->update([
+                    adsModel::where('city_id', $request->cityid)->update([
                         'city_name' => $request->cityname,
                     ]);
-                    if ($isSuccess) {
-                        return response()->json([
-                            'status' => true,
-                            'message' => 'City Updated Successfully',
-                        ]);
-                    } else
-                        return response()->json([
-                            'status' => false,
-                            'message' => 'Something Went Wrong.. Please Contact With Developer',
-                        ]);
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'City Updated Successfully',
+                    ]);
                 } else {
                     return response()->json([
                         'status' => false,
@@ -325,5 +319,15 @@ class adsController extends Controller
                 }
             }
         }
+    }
+
+    /* delete city */
+    public function deleteCity(Request $request)
+    {
+        $isSuccess = CitiesModel::find($request->cityid)->delete();
+        return response()->json([
+            'status' => $isSuccess,
+            'message' => $isSuccess ? 'City Updated Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+        ]);
     }
 }

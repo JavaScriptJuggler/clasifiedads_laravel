@@ -610,28 +610,55 @@
             $('#cityTextInput').val(cityName);
         }
 
-        const submitCity = (element) => {
-            if ($('#cityTextInput').val() != '') {
-                let data = {
-                    'cityid': $(element).data('cityid'),
-                    'cityname': $('#cityTextInput').val(),
-                }
-                axios.post("{{ url('admin/update-city') }}", data)
-                    .then((response) => {
-                        closeHoldOn();
-                        if (response.data.status) {
-                            showToast('Success', response.data.message, 'success', true, 'green');
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 3000);
-                        } else {
-                            showToast('Error !!!', response.data.message, 'error', true, 'red');
+        const deleteCity = (cityid, cityname) => {
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, You can recover it..",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        holdOn('Deleting City...Please Wait');
+                        let data = {
+                            'cityid': cityid,
                         }
-                    })
-                    .catch((error) => {})
-            } else {
-                showToast('Error !!!', 'City Cannot Be Empty', 'error', true, 'red');
+                        axios.post("{{ url('admin/delete-city') }}", data)
+                            .then((response) => {
+                                closeHoldOn();
+                                if (response.data.status) {
+                                    showToast('Success', response.data.message, 'success', true, 'green');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 3000);
+                                } else {
+                                    showToast('Error !!!', response.data.message, 'error', true, 'red');
+                                }
+                            })
+                            .catch((error) => {})
+                    }
+                })
+        }
+
+        const submitCity = (element) => {
+            let data = {
+                'cityid': $(element).data('cityid'),
+                'cityname':$('#cityTextInput').val(),
             }
+            axios.post("{{ url('admin/update-city') }}", data)
+                .then((response) => {
+                    closeHoldOn();
+                    if (response.data.status) {
+                        showToast('Success', response.data.message, 'success', true, 'green');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
+                    } else {
+                        showToast('Error !!!', response.data.message, 'error', true, 'red');
+                    }
+                })
+                .catch((error) => {})
         }
     </script>
 @endsection
