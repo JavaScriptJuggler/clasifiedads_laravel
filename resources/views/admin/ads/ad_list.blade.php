@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-            <div class="card">
+            <div class="card" style="overflow-y: auto">
                 <div class="row">
                     <div class="col-md-12">
                         <div
