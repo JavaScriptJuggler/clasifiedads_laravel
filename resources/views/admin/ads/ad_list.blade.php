@@ -87,7 +87,7 @@
                 <div class="col mb-3">
                     <label for="nameWithTitle" class="form-label">Cover Image</label>
                     <input type="file" id="product_image" name="image" accept="image/png, image/jpg, image/jpeg"
-                        required class="form-control" placeholder="Product Image" />
+                        required class="form-control" onchange="coverImageChange(this)" placeholder="Product Image" />
                 </div>
                 <div class="col mb-3">
                     <label for="nameWithTitle" class="form-label">Product Images</label>
@@ -430,6 +430,13 @@
             var $fileUpload = $(element);
             if (parseInt($fileUpload.get(0).files.length) > 5) {
                 alert('Maximum 5 images allowed');
+                $fileUpload.val('')
+            }
+        }
+        const coverImageChange = (element) => {
+            var $fileUpload = $(element);
+            if (parseInt($fileUpload.get(0).files.length) > 1) {
+                alert('Only 1 images allowed');
                 $fileUpload.val('')
             }
         }
