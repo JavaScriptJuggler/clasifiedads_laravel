@@ -36,5 +36,6 @@ class adsModel extends Model
         'payment_mode',
         'tags',
         'cover_image',
+        'service_area',
     ];
 }
