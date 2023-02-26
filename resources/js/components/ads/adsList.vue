@@ -3,7 +3,7 @@
     <loading :active="isLoading" :can-cancel="true" :on-cancel="onCancel" :is-full-page="fullPage" />
 
     <div class="row mb-4">
-      <div class="form-group text-center col-2">
+      <div class="form-group text-center col-md-2">
         <label for="productSearch" class="form-label">Product</label>
         <input
           type="text"
@@ -13,7 +13,7 @@
           v-on:keyup="getSearchResult()"
         />
       </div>
-      <div class="form-group text-center col-2">
+      <div class="form-group text-center col-md-2">
         <label for="productCategorySearch" class="form-label">Category</label>
         <select
           name="productCategorySearch"
@@ -29,7 +29,7 @@
           >{{ category.category_name }}</option>
         </select>
       </div>
-      <div class="form-group text-center col-2">
+      <div class="form-group text-center col-md-2">
         <label for="productCategorySearch" class="form-label">Ads Category</label>
         <select
           name="productCategorySearch"
@@ -45,7 +45,7 @@
           >{{ adsCategory.ad_category_name }}</option>
         </select>
       </div>
-      <div class="form-group text-center col-2">
+      <div class="form-group text-center col-md-2">
         <label for="productPriceSearch" class="form-label">Price</label>
         <input
           type="text"
@@ -57,7 +57,7 @@
           v-on:keyup="getSearchResult()"
         />
       </div>
-      <div class="form-group text-center col-2">
+      <div class="form-group text-center col-md-2">
         <label for="productSearch" class="form-label">Product Condition</label>
         <select
           name="productConditionSearch"
@@ -71,7 +71,7 @@
           <option value="Used">Used</option>
         </select>
       </div>
-      <div class="form-group text-center col-2">
+      <div class="form-group text-center col-md-2">
         <label for="productDateSearch" class="form-label">Date</label>
         <input
           type="date"
@@ -132,12 +132,16 @@
         </div>
       </div>
     </div>
-    <Bootstrap5Pagination align="center" :data="gettingDataOnLoad.adsListData" @pagination-change-page="list"></Bootstrap5Pagination>
+    <Bootstrap5Pagination
+      align="center"
+      :data="gettingDataOnLoad.adsListData"
+      @pagination-change-page="list"
+    ></Bootstrap5Pagination>
   </div>
 </template>
 <script>
 import Loading from "vue-loading-overlay";
-import { Bootstrap5Pagination } from 'laravel-vue-pagination';
+import { Bootstrap5Pagination } from "laravel-vue-pagination";
 export default {
   name: "adsList",
   data() {
@@ -161,7 +165,7 @@ export default {
   },
   components: {
     Loading,
-    Bootstrap5Pagination,
+    Bootstrap5Pagination
   },
   created() {
     this.list();

@@ -229,6 +229,17 @@
                     <input type="text" id="product_tags" required name="product_tags" class="form-control">
                 </div>
                 <div class="col mb-3">
+                    <label for="" class="form-label">Service Area (Delivery)</label>
+                    <select name="service_area" id="service_area" required class="form-control">
+                        <option value="">Select Service Area</option>
+                        <option>All India</option>
+                        <option>State</option>
+                        <option>City</option>
+                        <option>Not Deliverable</option>
+                        <option>Walk In</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
                     <textarea name="description" required class="form-control" id="" cols="30" rows="5"
                         placeholder="Product Description"></textarea>
                 </div>

@@ -118,7 +118,7 @@ class adsController extends Controller
             'units' => $request->unit,
             'payment_mode' => $request->payment_mode,
             'tags' => $request->product_tags,
-            // 'product_image'=>
+            'service_area' => $request->service_area,
         ];
 
         $isSaved =  adsModel::create($dataArray)->save();
