@@ -4,7 +4,7 @@
 
     <div class="row mb-4">
       <div class="form-group text-center col-md-2">
-        <label for="productSearch" class="form-label">Product 1</label>
+        <label for="productSearch" class="form-label">Product</label>
         <input
           type="text"
           id="productName"
@@ -174,7 +174,6 @@ export default {
   mounted() {},
   methods: {
     deleteAd(ad_id) {
-      alert("hi");
       swal({
         title: "Are you sure?",
         text: "Once deleted, you can be recover this record again !",
