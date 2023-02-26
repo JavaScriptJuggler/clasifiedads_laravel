@@ -1,7 +1,6 @@
 <template>
   <div>
     <loading :active="isLoading" :can-cancel="true" :on-cancel="onCancel" :is-full-page="fullPage" />
-
     <div class="row mb-4">
       <div class="form-group text-center col-md-2">
         <label for="productSearch" class="form-label">Product</label>
