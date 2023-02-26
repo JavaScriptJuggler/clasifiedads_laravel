@@ -32,6 +32,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/ads-list', 'adsList')->name('ads-list');
             Route::post('/save-ads', 'saveAds')->name('save-ads');
             Route::get('/get-ads', 'getAds')->name('get-ads');
+            Route::post('/delete-ads', 'deleteAds')->name('delete-ads');
             Route::post('/get-search-results', 'getSearchResult');
             Route::post('/update-product-category', 'updateProductCategory');
             Route::post('/update-product-sub-category', 'updateProductSubCategory');

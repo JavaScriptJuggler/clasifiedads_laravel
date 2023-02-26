@@ -335,4 +335,17 @@ class adsController extends Controller
             'message' => $isSuccess ? 'City Updated Successfully' : 'Something Went Wrong.. Please Contact With Developer',
         ]);
     }
+
+    /* delete ads */
+    public function deleteAds(Request $request)
+    {
+        if ($request->has('recordId') && $request->recordId != '') {
+            $isSuccess = adsModel::find($request->recordId)->delete();
+            return response()->json([
+                'status' => $isSuccess,
+                'message' => $isSuccess ? 'Record Deleted Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+                'details' => adsModel::orderBy('id', 'desc')->paginate(10),
+            ]);
+        }
+    }
 }

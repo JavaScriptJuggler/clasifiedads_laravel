@@ -119,7 +119,7 @@
                   <button class="btn btn-warning btn-sm m-1">
                     <i class="bx bx-edit-alt"></i>
                   </button>
-                  <button class="btn btn-danger btn-sm m-1">
+                  <button class="btn btn-danger btn-sm m-1" v-on:click="deleteAd(ad.id)">
                     <i class="bx bx-trash-alt"></i>
                   </button>
                   <button class="btn btn-primary btn-sm m-1">
@@ -141,6 +141,7 @@
 </template>
 <script>
 import Loading from "vue-loading-overlay";
+import swal from "sweetalert";
 import { Bootstrap5Pagination } from "laravel-vue-pagination";
 export default {
   name: "adsList",
@@ -172,6 +173,32 @@ export default {
   },
   mounted() {},
   methods: {
+    deleteAd(ad_id) {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you can be recover this record again !",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(willDelete => {
+        if (willDelete) {
+          this.isLoading = true;
+          let data = {
+            recordId: ad_id
+          };
+          axios
+            .post("/admin/delete-ads", data)
+            .then(response => {
+              if (response.data.status) {
+                this.gettingDataOnLoad.adsListData = response.data.details;
+                this.isLoading = false;
+              }
+            })
+            .catch(error => {});
+        }
+      });
+    },
+
     async list(page = 1) {
       await axios
         .get(`/admin/get-ads?page=${page}`)
