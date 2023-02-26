@@ -94,7 +94,8 @@ class adsController extends Controller
         }
         $dataArray = [
             'product_name' => $request->productName,
-            'product_image' => $request->image != '' ? imageUploader($request) : '',
+            'cover_image' => $request->image != '' ? imageUploader($request) : '',
+            'product_image' => $request->productImages != '' ? serialize(multiImageUploader($request, 'productImages')) : '',
             'product_category' => $request->productCategory,
             'product_sub_category' => $request->productSubCategory,
             'price' => $request->price,
@@ -116,6 +117,8 @@ class adsController extends Controller
             'city_name' => CitiesModel::find($request->city)->city_name,
             'units' => $request->unit,
             'payment_mode' => $request->payment_mode,
+            'tags' => $request->product_tags,
+            // 'product_image'=>
         ];
 
         $isSaved =  adsModel::create($dataArray)->save();

@@ -11,7 +11,7 @@
                             <div>
                                 <h5 class="mb-0">Ads List</h5>
                             </div>
-                            <div>
+                            <div style="display:contents;">
                                 <button class="btn btn-primary m-2" style="float:right" type="button"
                                     data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
                                     aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
@@ -50,8 +50,23 @@
                 </div>
                 <div class="col mb-3">
                     <label for="nameWithTitle" class="form-label">Seller Type</label>
-                    <input type="text" id="seller_type" name="seller_type" readonly required class="form-control"
-                        placeholder="Seller Type" value="Personal" />
+                    <select id="seller_type" name="seller_type" required class="form-control">
+                        <option value="" style="display:none">Choose Seller Type</option>
+                        <option>Personal</option>
+                        <option>Importer</option>
+                        <option>Exporter</option>
+                        <option>Manufacturer</option>
+                        <option>Distributor</option>
+                        <option>Wholesaler</option>
+                        <option>Dealer</option>
+                        <option>Retailer</option>
+                        <option>Consultant</option>
+                        <option>Repair & Maintenance</option>
+                        <option>Service Provider</option>
+                        <option>Developer</option>
+                        <option>Contractor</option>
+                        <option>Supplier</option>
+                    </select>
                 </div>
                 <div class="col mb-3">
                     <label for="nameWithTitle" class="form-label">Cities</label>
@@ -70,9 +85,17 @@
                         placeholder="Location" />
                 </div>
                 <div class="col mb-3">
-                    <label for="nameWithTitle" class="form-label">Product Image</label>
+                    <label for="nameWithTitle" class="form-label">Cover Image</label>
                     <input type="file" id="product_image" name="image" accept="image/png, image/jpg, image/jpeg"
                         required class="form-control" placeholder="Product Image" />
+                </div>
+                <div class="col mb-3">
+                    <label for="nameWithTitle" class="form-label">Product Images</label>
+                    <input type="file" id="productImages" name="productImages[]"
+                        accept="image/png, image/jpg, image/jpeg" required class="form-control"
+                        placeholder="Product Images" onchange="imageSelection(this)" multiple />
+                    <span class="text-danger product_images_error d-none" id="product_images_error">Maximum 5 photos
+                        allowed</span>
                 </div>
                 <div class="col mb-3">
                     <div class="d-flex align-items-center justify-content-between">
@@ -200,6 +223,10 @@
                         <option>Electronic Bank Transfers</option>
                         <option>Digital/Mobile Wallet</option>
                     </select>
+                </div>
+                <div class="col mb-3">
+                    <label for="" class="form-label">Product Tags</label>
+                    <input type="text" id="product_tags" required name="product_tags" class="form-control">
                 </div>
                 <div class="col mb-3">
                     <textarea name="description" required class="form-control" id="" cols="30" rows="5"
@@ -395,12 +422,23 @@
     </div>
 
     <script>
+        $(function() {
+            var input = document.querySelector('input[name=product_tags]');
+            new Tagify(input)
+        });
+        const imageSelection = (element) => {
+            var $fileUpload = $(element);
+            if (parseInt($fileUpload.get(0).files.length) > 5) {
+                alert('Maximum 5 images allowed');
+                $fileUpload.val('')
+            }
+        }
         const onCategorySelectChange = (element) => {
             if ($(element).val() != '') {
                 let category = $(element).val();
                 $('#productSubCategorySelect option').hide();
                 $('#productSubCategorySelect option[data-category="' + category + '"]').show();
-                $('#productSubCategorySelect').removeAttr('disabled');
+                $('#productSubCategorySelect').removeAttr('disabled').val('');
             }
         }
 

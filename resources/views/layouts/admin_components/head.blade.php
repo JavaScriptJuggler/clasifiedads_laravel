@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/holdon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/toast.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/tagify.css') }}">
 
     <!-- Page CSS -->
 

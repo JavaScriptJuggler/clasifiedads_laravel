@@ -34,5 +34,7 @@ class adsModel extends Model
         'city_name',
         'units',
         'payment_mode',
+        'tags',
+        'cover_image',
     ];
 }
