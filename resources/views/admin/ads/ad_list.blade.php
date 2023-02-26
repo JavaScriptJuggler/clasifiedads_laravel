@@ -504,6 +504,7 @@
             var input = document.querySelector('input[name=product_tags]');
             new Tagify(input)
         });
+
         const imageSelection = (element) => {
             var $fileUpload = $(element);
             if (parseInt($fileUpload.get(0).files.length) > 5) {
@@ -511,6 +512,7 @@
                 $fileUpload.val('')
             }
         }
+
         const coverImageChange = (element) => {
             var $fileUpload = $(element);
             if (parseInt($fileUpload.get(0).files.length) > 1) {
@@ -518,6 +520,7 @@
                 $fileUpload.val('')
             }
         }
+
         const onCategorySelectChange = (element) => {
             if ($(element).val() != '') {
                 let category = $(element).val();
@@ -820,6 +823,14 @@
                     }
                 })
                 .catch((error) => {})
+        }
+
+        const editAdsCategory = (id, category_name, category_color) => {
+
+        }
+
+        const deleteAdsCategory = (id, category_name, category_color) => {
+
         }
     </script>
 @endsection
