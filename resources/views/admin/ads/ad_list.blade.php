@@ -12,22 +12,26 @@
                                 <h5 class="mb-0">Ads List</h5>
                             </div>
                             <div style="display:contents;">
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
-                                    aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
-                                    Add New Ad</button>
+                                <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#adsCategoryModel" aria-controls="offCanvasAdd" onclick="addCity()"><i
+                                        class="bx bx-plus-circle"></i>
+                                    Ads Category </button>
                                 <button class="btn btn-primary m-2" style="float:right" type="button"
                                     data-bs-toggle="modal" data-bs-target="#cityModal" aria-controls="offCanvasAdd"
                                     onclick="addCity()"><i class="bx bx-plus-circle"></i>
-                                    Add City</button>
+                                    City</button>
                                 <button class="btn btn-primary m-2" style="float:right" type="button"
                                     data-bs-toggle="modal" data-bs-target="#categoryModal" aria-controls="offCanvasAdd"
                                     onclick="addCategoryClick()"><i class="bx bx-plus-circle"></i>
-                                    Add Category</button>
+                                    Category</button>
                                 <button class="btn btn-primary m-2" style="float:right" type="button"
                                     data-bs-toggle="modal" data-bs-target="#subCategoryModal" aria-controls="offCanvasAdd"
                                     onclick="addSubCatClick()"><i class="bx bx-plus-circle"></i>
-                                    Add Sub Category</button>
+                                    Sub Category</button>
+                                <button class="btn btn-primary m-2" style="float:right" type="button"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
+                                    aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
+                                    New Ad</button>
                             </div>
                         </div>
                     </div>
@@ -376,7 +380,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="cityModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -411,6 +414,70 @@
                                                             class="bx bx-edit-alt"></i></button>
                                                     <button class="btn btn-danger btn-sm m-1"
                                                         onclick="deleteCity('{{ $item->id }}','{{ $item->city_name }}')"><i
+                                                            class="bx bx-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary update-city" onclick="submitCity(this)" data-cityid=''
+                        data-cityname=''>Add City</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="adsCategoryModel" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">Add/Edit Cities</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="nameWithTitle" class="form-label">Ads Category</label>
+                            <input type="text" id="adsCategortyTextInput" class="form-control">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="nameWithTitle" class="form-label">Ads Category</label>
+                            <input type="color" id="adsCategortyColorInput" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div style="height:16rem;overflow-y: auto">
+                            <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <td>Ads Category</td>
+                                        <td>Ads Colour</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (count($ads_category) > 0)
+                                        @foreach ($ads_category as $item)
+                                            <tr>
+                                                <td>{{ $item->ad_category_name }}</td>
+                                                <td><span class="badge"
+                                                        style="background-color: {{ $item->ad_category_color }}">Ads
+                                                        Badge</span>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm m-1"
+                                                        onclick="editAdsCategory('{{ $item->id }}','{{ $item->ad_category_name }}','{{ $item->ad_category_color }}')"><i
+                                                            class="bx bx-edit-alt"></i></button>
+                                                    <button class="btn btn-danger btn-sm m-1"
+                                                        onclick="deleteAdsCategory('{{ $item->id }}','{{ $item->ad_category_name }}','{{ $item->ad_category_color }}')"><i
                                                             class="bx bx-trash-alt"></i></button>
                                                 </td>
                                             </tr>
