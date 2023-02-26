@@ -173,7 +173,8 @@ export default {
   mounted() {},
   methods: {
     deleteAd(ad_id) {
-      swal({
+        alert('hi');
+      /* swal({
         title: "Are you sure?",
         text: "Once deleted, you can be recover this record again !",
         icon: "warning",
@@ -195,7 +196,7 @@ export default {
             })
             .catch(error => {});
         }
-      });
+      }); */
     },
 
     async list(page = 1) {
