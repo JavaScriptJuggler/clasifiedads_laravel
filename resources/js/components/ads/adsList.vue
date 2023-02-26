@@ -4,7 +4,7 @@
 
     <div class="row mb-4">
       <div class="form-group text-center col-md-2">
-        <label for="productSearch" class="form-label">Product</label>
+        <label for="productSearch" class="form-label">Product 1</label>
         <input
           type="text"
           id="productName"
