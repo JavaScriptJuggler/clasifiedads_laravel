@@ -174,6 +174,7 @@ export default {
   mounted() {},
   methods: {
     deleteAd(ad_id) {
+      alert("hi");
       swal({
         title: "Are you sure?",
         text: "Once deleted, you can be recover this record again !",
