@@ -24,8 +24,11 @@
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <div id="app">
-                        @yield('content')
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4>{{ Breadcrumbs::render() }}</h4>
+                        <div id="app">
+                            @yield('content')
+                        </div>
                     </div>
 
                     <div class="content-backdrop fade"></div>

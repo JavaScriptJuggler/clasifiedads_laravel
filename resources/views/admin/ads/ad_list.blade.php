@@ -1,43 +1,42 @@
 @extends('layouts.admin-layout')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row">
-            <div class="card" style="overflow-y: auto">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div
-                            class="card-header container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
-                            <div>
-                                <h5 class="mb-0">Ads List</h5>
-                            </div>
-                            <div style="display:contents;">
-                                <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#adsCategoryModel" aria-controls="offCanvasAdd" onclick="addCity()"><i
-                                        class="bx bx-plus-circle"></i>
-                                    Ads Category </button>
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#cityModal" aria-controls="offCanvasAdd"
-                                    onclick="addCity()"><i class="bx bx-plus-circle"></i>
-                                    City</button>
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#categoryModal" aria-controls="offCanvasAdd"
-                                    onclick="addCategoryClick()"><i class="bx bx-plus-circle"></i>
-                                    Category</button>
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#subCategoryModal" aria-controls="offCanvasAdd"
-                                    onclick="addSubCatClick()"><i class="bx bx-plus-circle"></i>
-                                    Sub Category</button>
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
-                                    aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
-                                    New Ad</button>
-                            </div>
+
+    <div class="row">
+        <div class="card" style="overflow-y: auto">
+            <div class="row">
+                <div class="col-md-12">
+                    <div
+                        class="card-header container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+                        <div>
+                            <h5 class="mb-0">Ads List</h5>
+                        </div>
+                        <div style="display:contents;">
+                            <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
+                                data-bs-target="#adsCategoryModel" aria-controls="offCanvasAdd"><i
+                                    class="bx bx-plus-circle"></i>
+                                Ads Category </button>
+                            <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
+                                data-bs-target="#cityModal" aria-controls="offCanvasAdd" onclick="addCity()"><i
+                                    class="bx bx-plus-circle"></i>
+                                City</button>
+                            <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
+                                data-bs-target="#categoryModal" aria-controls="offCanvasAdd" onclick="addCategoryClick()"><i
+                                    class="bx bx-plus-circle"></i>
+                                Category</button>
+                            <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
+                                data-bs-target="#subCategoryModal" aria-controls="offCanvasAdd"
+                                onclick="addSubCatClick()"><i class="bx bx-plus-circle"></i>
+                                Sub Category</button>
+                            <button class="btn btn-primary m-2" style="float:right" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd" aria-controls="offCanvasAdd"><i
+                                    class="bx bx-plus-circle"></i>
+                                New Ad</button>
                         </div>
                     </div>
                 </div>
-                <ads-list></ads-list>
             </div>
+            <ads-list></ads-list>
         </div>
     </div>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasAdd" aria-labelledby="offcanvasEndLabel">
@@ -449,7 +448,7 @@
                             <input type="text" id="adsCategortyTextInput" class="form-control">
                         </div>
                         <div class="col-6 mb-3">
-                            <label for="nameWithTitle" class="form-label">Ads Category</label>
+                            <label for="nameWithTitle" class="form-label">Ads Category Colour</label>
                             <input type="color" id="adsCategortyColorInput" class="form-control">
                         </div>
                     </div>
@@ -492,8 +491,8 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary update-city" onclick="submitCity(this)" data-cityid=''
-                        data-cityname=''>Add City</button>
+                    <button type="button" class="btn btn-primary update-adscategory" onclick="submitAdsCategory(this)"
+                        data-adscategoryname='' data-adscategorycolor='' data-id="">Add Ads Category</button>
                 </div>
             </div>
         </div>
@@ -504,6 +503,13 @@
             var input = document.querySelector('input[name=product_tags]');
             new Tagify(input)
         });
+
+        const addAdsCategory = () => {
+            $('#adsCategortyTextInput').val('');
+            $('#adsCategortyColorInput').val('');
+            $('.update-adscategory').data('adscategoryname', '').data('adscategorycolor', '').data('id', '').text(
+                'Add Ads Category');
+        }
 
         const imageSelection = (element) => {
             var $fileUpload = $(element);
@@ -826,6 +832,33 @@
         }
 
         const editAdsCategory = (id, category_name, category_color) => {
+            $('#adsCategortyTextInput').val(category_name);
+            $('#adsCategortyColorInput').val(category_color);
+            $('.update-adscategory').data('adscategoryname', category_name).data('id', id).data('adscategorycolor',
+                    category_color)
+                .text('Edit Ads Category');
+        }
+
+        const submitAdsCategory = (element) => {
+            holdOn('Updating Ads Category...Please Wait');
+            let data = {
+                recordId: $(element).data('id'),
+                adsCategoryName: $('#adsCategortyTextInput').val(),
+                adsCategoryColor: $('#adsCategortyColorInput').val(),
+            }
+            axios.post('/admin/update-ads-category', data)
+                .then((response) => {
+                    closeHoldOn();
+                    if (response.data.status) {
+                        showToast('Success', response.data.message, 'success', true, 'green');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
+                    } else {
+                        showToast('Error !!!', response.data.message, 'error', true, 'red');
+                    }
+                })
+                .catch((error) => {})
 
         }
 

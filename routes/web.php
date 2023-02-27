@@ -37,6 +37,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/update-product-category', 'updateProductCategory');
             Route::post('/update-product-sub-category', 'updateProductSubCategory');
             Route::post('/update-city', 'updateCity');
+            Route::post('/update-ads-category', 'updateAdsCategory');
             Route::post('/delete-category', 'deleteProductCategory');
             Route::post('/delete-sub-category', 'deleteProductSubCategory');
             Route::post('/delete-city', 'deleteCity');

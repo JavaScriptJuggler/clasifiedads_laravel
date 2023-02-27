@@ -348,4 +348,50 @@ class adsController extends Controller
             ]);
         }
     }
+
+    /* update ads category */
+    public function updateAdsCategory(Request $request)
+    {
+        if ($request->has('recordId') && $request->recordId != '') {
+            $getData = adsCategoryModel::find($request->recordId);
+            if (!empty($getData)) {
+                $getData->ad_category_name = $request->adsCategoryName;
+                $getData->ad_category_color = $request->adsCategoryColor;
+                $isSuccess = $getData->save();
+                if ($isSuccess) {
+                    adsModel::where('ad_category_id', $request->recordId)->update([
+                        'ad_category' => $request->adsCategoryName,
+                        'ads_color' => $request->adsCategoryColor,
+                    ]);
+                }
+                return response()->json([
+                    'status' => $isSuccess,
+                    'message' => $isSuccess ? 'Ads Category Updated Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Something Went Wrong.. Please Contact With Developer'
+                ]);
+            }
+        }
+        if ($request->has('recordId') && $request->recordId == '') {
+            $getData = adsCategoryModel::where('ad_category_name', $request->adsCategoryName)->first();
+            if (empty($getData)) {
+                $isSuccess = adsCategoryModel::create([
+                    'ad_category_name' => $request->adsCategoryName,
+                    'ad_category_color' => $request->adsCategoryColor,
+                ]);
+                return response()->json([
+                    'status' => $isSuccess,
+                    'message' => $isSuccess ? 'Ads Category Updated Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Ads Category Already Exist',
+                ]);
+            }
+        }
+    }
 }
