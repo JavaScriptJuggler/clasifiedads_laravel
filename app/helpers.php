@@ -1,8 +1,11 @@
 <?php
 
-function imageUploader($request)
+function imageUploader($request, $dataname = '')
 {
-    $image = $request->file('image');
+    if ($dataname == '')
+        $image = $request->file('image');
+    else
+        $image = $request->file($dataname);
     $input['imagename'] = time() . '.' . $image->getClientOriginalName();
     $destinationPath = public_path('/document_bucket');
     $image->move($destinationPath, $input['imagename']);

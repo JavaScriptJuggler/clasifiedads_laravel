@@ -41,5 +41,9 @@ Route::prefix('admin')->group(function () {
             Route::post('/delete-category', 'deleteProductCategory');
             Route::post('/delete-sub-category', 'deleteProductSubCategory');
             Route::post('/delete-city', 'deleteCity');
+            Route::post('/delete-ads-category', 'deleteAdsCategory');
+            Route::get('/view-ads/{recordid}', 'viewAds')->name('view-ads');
+            Route::post('/get-ads-details', 'getAdsDetails');
+            Route::post('/update-ads', 'updateAds');
         });
 });

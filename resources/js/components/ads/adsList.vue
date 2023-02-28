@@ -121,9 +121,9 @@
                   <button class="btn btn-danger btn-sm m-1" v-on:click="deleteAd(ad.id)">
                     <i class="bx bx-trash-alt"></i>
                   </button>
-                  <button class="btn btn-primary btn-sm m-1">
+                  <a class="btn btn-primary btn-sm m-1" :href="'/admin/view-ads/'+ad.id">
                     <i class="bx bx-show"></i>
-                  </button>
+                  </a>
                 </td>
               </tr>
             </tbody>

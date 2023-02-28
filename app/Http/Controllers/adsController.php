@@ -10,6 +10,7 @@ use App\Models\productCategoryModel;
 use App\Models\productSubCategoryModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class adsController extends Controller
 {
@@ -349,6 +350,18 @@ class adsController extends Controller
         }
     }
 
+    /* delete ads category */
+    public function deleteAdsCategory(Request $request)
+    {
+        if ($request->has('recordid') && $request->recordid != '') {
+            $isSuccess = adsCategoryModel::find($request->recordid)->delete();
+            return response()->json([
+                'status' => $isSuccess,
+                'message' => $isSuccess ? 'Record Deleted Successfully' : 'Something Went Wrong.. Please Contact With Developer',
+            ]);
+        }
+    }
+
     /* update ads category */
     public function updateAdsCategory(Request $request)
     {
@@ -390,6 +403,94 @@ class adsController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'Ads Category Already Exist',
+                ]);
+            }
+        }
+    }
+
+    /* view ads */
+    public function viewAds($recordid)
+    {
+        view()->share([
+            'page_name' => 'View Ads',
+        ]);
+        return view('admin.ads.view_ads');
+    }
+
+    /* get ads details */
+    public function getAdsDetails(Request $request)
+    {
+        $details = adsModel::find($request->recordid);
+        if (!empty($details)) {
+            $adsDetails = [];
+            $adsDetails = adsModel::find($request->recordid);
+            /*  if (!empty($adsDetails)) {
+                $imagesArr = [];
+                $imagesGet = unserialize($adsDetails->product_image);
+                if (count($imagesGet) > 0) {
+                    foreach ($imagesGet as $key => $image) {
+                        array_push($imagesArr, '/document_bucket/' . $image);
+                    }
+                }
+                $adsDetails['product_images'] = $imagesArr;
+            } */
+            return response()->json([
+                'status' => true,
+                'categories' => productCategoryModel::all(),
+                'sub_categories' => productSubCategoryModel::all(),
+                'price_conditions' => priceConditionModel::all(),
+                'ads_category' => adsCategoryModel::all(),
+                'cities' => CitiesModel::all(),
+                'ads_details' => $adsDetails,
+                'message' => 'Ad Details Fecthed Successfully',
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'No Ads Found',
+            ]);
+        }
+    }
+
+    /* update ads */
+    public function updateAds(Request $request)
+    {
+        $input = $request->all();
+        $validatorArr = [];
+        if (!is_string($input['cover_image'])) {
+            $input['cover_image'] = imageUploader($request, 'cover_image');
+        }
+        if (count($input) > 0) {
+            foreach ($input as $key => $value) {
+                if ($key != 'deleted_at')
+                    $validatorArr[$key] = 'required';
+            }
+        }
+        $validator = Validator::make($input, $validatorArr);
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->messages(),
+                'status' => false,
+                'class' => 'danger'
+            ]);
+        } else {
+            unset($input['created_at'], $input['updated_at'], $input['deleted_at']);
+            $dataRetrive = adsModel::find($input['id']);
+            /* remove image */
+            if ($dataRetrive->cover_image != '' && file_exists(public_path('/document_bucket/' . $dataRetrive->cover_image)))
+                unlink(public_path('/document_bucket/' . $dataRetrive->cover_image));
+            $getData = adsModel::where('id', $input['id'])->update($input);
+            if ($getData) {
+                return response()->json([
+                    'message' => ["success" => ['Ads submitted successfully for review.. Once review complete it will directly publish at our website']],
+                    'status' => true,
+                    'class' => 'success',
+                ]);
+            } else {
+                return response()->json([
+                    'message' => ["error" => 'Record Not Found'],
+                    'status' => false,
+                    'class' => 'danger',
                 ]);
             }
         }

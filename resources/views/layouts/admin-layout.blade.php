@@ -25,7 +25,7 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4>{{ Breadcrumbs::render() }}</h4>
+                        <h5>{{ Breadcrumbs::render() }}</h5>
                         <div id="app">
                             @yield('content')
                         </div>

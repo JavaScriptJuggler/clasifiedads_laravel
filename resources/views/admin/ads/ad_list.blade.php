@@ -863,7 +863,34 @@
         }
 
         const deleteAdsCategory = (id, category_name, category_color) => {
-
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, You can recover it..",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        holdOn('Deleting Ads Category...Please Wait');
+                        let data = {
+                            'recordid': id,
+                        }
+                        axios.post("{{ url('/admin/delete-ads-category') }}", data)
+                            .then((response) => {
+                                closeHoldOn();
+                                if (response.data.status) {
+                                    showToast('Success', response.data.message, 'success', true, 'green');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 3000);
+                                } else {
+                                    showToast('Error !!!', response.data.message, 'error', true, 'red');
+                                }
+                            })
+                            .catch((error) => {})
+                    }
+                })
         }
     </script>
 @endsection
