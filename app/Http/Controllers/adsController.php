@@ -491,7 +491,7 @@ class adsController extends Controller
             }
             $input['tags'] = implode(',', $tags);
             /* remove image */
-            if ($dataRetrive->cover_image != '' && file_exists(public_path('/document_bucket/' . $dataRetrive->cover_image)))
+            if ($dataRetrive->cover_image != '' && !is_string($dataRetrive->cover_image) && file_exists(public_path('/document_bucket/' . $dataRetrive->cover_image)))
                 unlink(public_path('/document_bucket/' . $dataRetrive->cover_image));
             $getData = adsModel::where('id', $input['id'])->update($input);
             if ($getData) {
