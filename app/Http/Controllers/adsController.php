@@ -93,6 +93,12 @@ class adsController extends Controller
                 $adsColor = $getAdsCategory->ad_category_color;
             }
         }
+        $tags = [];
+        if (count(json_decode($request->product_tags))) {
+            foreach (json_decode($request->product_tags) as $key => $value) {
+                array_push($tags, $value->value);
+            }
+        }
         $dataArray = [
             'product_name' => $request->productName,
             'cover_image' => $request->image != '' ? imageUploader($request) : '',
@@ -118,7 +124,7 @@ class adsController extends Controller
             'city_name' => CitiesModel::find($request->city)->city_name,
             'units' => $request->unit,
             'payment_mode' => $request->payment_mode,
-            'tags' => $request->product_tags,
+            'tags' => implode(',', $tags),
             'service_area' => $request->service_area,
         ];
 
@@ -476,6 +482,14 @@ class adsController extends Controller
         } else {
             unset($input['created_at'], $input['updated_at'], $input['deleted_at']);
             $dataRetrive = adsModel::find($input['id']);
+            /* formating tags */
+            $tags = [];
+            if (count(json_decode($request->tags))) {
+                foreach (json_decode($request->tags) as $key => $value) {
+                    array_push($tags, $value->value);
+                }
+            }
+            $input['tags'] = implode(',', $tags);
             /* remove image */
             if ($dataRetrive->cover_image != '' && file_exists(public_path('/document_bucket/' . $dataRetrive->cover_image)))
                 unlink(public_path('/document_bucket/' . $dataRetrive->cover_image));

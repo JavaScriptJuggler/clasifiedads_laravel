@@ -18,9 +18,11 @@ const app = createApp({});
 import ExampleComponent from './components/ExampleComponent.vue';
 import adsList from './components/ads/adsList.vue'
 import viewAds from './components/ads/viewAds.vue'
+import Tags from './components/partials/tagify.vue'
 
 app.component('ads-list', adsList);
 app.component('view-ads', viewAds);
+app.component('tagify', Tags);
 
 /**
  * The following block of code may be used to automatically register your

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\adsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\profileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,5 +46,14 @@ Route::prefix('admin')->group(function () {
             Route::get('/view-ads/{recordid}', 'viewAds')->name('view-ads');
             Route::post('/get-ads-details', 'getAdsDetails');
             Route::post('/update-ads', 'updateAds');
+        });
+
+    /* profile routes */
+    Route::controller(profileController::class)
+        ->prefix('profile')
+        ->as('profile.')
+        ->group(function () {
+            Route::get('/', 'index')->name('profile');
+            Route::post('/save-profile', 'saveProfile');
         });
 });

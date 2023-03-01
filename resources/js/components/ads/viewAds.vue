@@ -222,6 +222,13 @@
           <option v-for="service_area in service_areas" :key="service_area">{{ service_area }}</option>
         </select>
       </div>
+      <div class="col-md-4 mb-2">
+        <label for class="form-label">
+          Tags
+          <span class="text-danger" style="font-size:15px">*</span>
+        </label>
+        <tagify :initialValue="tagifyValue" :onChange="onTagsChange" />
+      </div>
       <div class="col-md-12 mb-2">
         <label for class="form-label">
           Product Description
@@ -292,6 +299,7 @@ export default {
       adscategories: [],
       product_conditions: ["New", "Used"],
       cities: [],
+      tagifyValue: [],
       service_areas: [
         "All India",
         "State",
@@ -376,6 +384,10 @@ export default {
     this.options.select = "Choosed";
   },
   methods: {
+    onTagsChange(e) {
+      this.productDetails.tags = e.target.value;
+    },
+
     images(e) {
       let images = [];
       e.map(res => images.push(res));
@@ -438,6 +450,7 @@ export default {
             this.priceconditions = response.data.price_conditions;
             this.adscategories = response.data.ads_category;
             this.cities = response.data.cities;
+            this.tagifyValue = response.data.ads_details.tags.split(",");
           }
         })
         .catch(error => {});
