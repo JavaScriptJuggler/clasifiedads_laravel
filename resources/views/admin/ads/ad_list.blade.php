@@ -12,10 +12,10 @@
                             <h5 class="mb-0">Ads List</h5>
                         </div>
                         <div style="display:contents;">
-                            <div class="{{ Auth::user()->user_type == 'user' ? 'd-none' : '' }}">
-                                <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#adsCategoryModel" aria-controls="offCanvasAdd"><i
-                                        class="bx bx-plus-circle"></i>
+                            <div class="{{ Auth::user()->user_type == 'user' ? 'd-none' : '' }}" style="display:contents;">
+                                <button class="btn btn-primary m-2" style="float:right" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#adsCategoryModel"
+                                    aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
                                     Ads Category </button>
                                 <button class="btn btn-primary m-2" style="float:right" type="button"
                                     data-bs-toggle="modal" data-bs-target="#cityModal" aria-controls="offCanvasAdd"
