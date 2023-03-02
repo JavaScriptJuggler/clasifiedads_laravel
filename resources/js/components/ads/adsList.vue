@@ -115,9 +115,9 @@
                   <span class="badge" :style="{'background-color':ad.ads_color}">{{ad.ad_category}}</span>
                 </td>
                 <td>
-                  <button class="btn btn-warning btn-sm m-1">
+                  <a class="btn btn-warning btn-sm m-1" :href="'/admin/view-ads/'+ad.id">
                     <i class="bx bx-edit-alt"></i>
-                  </button>
+                  </a>
                   <button class="btn btn-danger btn-sm m-1" v-on:click="deleteAd(ad.id)">
                     <i class="bx bx-trash-alt"></i>
                   </button>
