@@ -36,6 +36,7 @@ class profileController extends Controller
         $user->state = $request->state;
         $user->city = $request->city;
         $user->zip = $request->zipCode;
+        $user->address = $request->address;
         if ($request->has('image'))
             $user->avatar = $imageLink;
         $isSuccess = $user->save();
