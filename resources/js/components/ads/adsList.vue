@@ -199,8 +199,16 @@ export default {
     },
 
     async list(page = 1) {
+      let data = {
+        product_name: this.product,
+        product_category: this.category,
+        ad_category: this.adsCategory,
+        price: this.price,
+        product_condition: this.condition,
+        date: this.date
+      };
       await axios
-        .get(`/admin/get-ads?page=${page}`)
+        .get(`/admin/get-ads?page=${page}&data=${JSON.stringify(data)}`)
         .then(response => {
           this.gettingDataOnLoad.adsListData = response.data.details;
           this.gettingDataOnLoad.categories = response.data.product_category;
