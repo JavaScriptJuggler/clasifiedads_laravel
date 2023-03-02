@@ -138,7 +138,11 @@ class adsController extends Controller
     /* get all ads */
     public function getAds()
     {
-        $adsDetails = adsModel::orderBy('id', 'desc')->paginate(10);
+        if (Auth::user()->user_type == 'admin')
+            $adsDetails = adsModel::orderBy('id', 'desc')->paginate(10);
+        else
+            $adsDetails = adsModel::where('user_id', Auth::id())->orderBy('id', 'desc')->paginate(10);
+
         return response()->json([
             'status' => true,
             'message' => 'Data Fetched Successfully',
@@ -154,6 +158,8 @@ class adsController extends Controller
     public function getSearchResult(Request $request)
     {
         $ads = adsModel::select("*");
+        if (Auth::user()->user_type != 'admin')
+            $ads->where('user_id', Auth::id());
         if ($request->product_name != null && $request->product_name != '')
             $ads->where('product_name', 'LIKE', '%' . $request->product_name . '%');
         if ($request->product_condition != null && $request->product_condition != '')
@@ -351,7 +357,7 @@ class adsController extends Controller
             return response()->json([
                 'status' => $isSuccess,
                 'message' => $isSuccess ? 'Record Deleted Successfully' : 'Something Went Wrong.. Please Contact With Developer',
-                'details' => adsModel::orderBy('id', 'desc')->paginate(10),
+                'details' => Auth::user()->user_type == 'admin' ? adsModel::orderBy('id', 'desc')->paginate(10) : adsModel::where('user_id', Auth::id())->orderBy('id', 'desc')->paginate(10),
             ]);
         }
     }

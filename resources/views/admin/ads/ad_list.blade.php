@@ -12,22 +12,24 @@
                             <h5 class="mb-0">Ads List</h5>
                         </div>
                         <div style="display:contents;">
-                            <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
-                                data-bs-target="#adsCategoryModel" aria-controls="offCanvasAdd"><i
-                                    class="bx bx-plus-circle"></i>
-                                Ads Category </button>
-                            <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
-                                data-bs-target="#cityModal" aria-controls="offCanvasAdd" onclick="addCity()"><i
-                                    class="bx bx-plus-circle"></i>
-                                City</button>
-                            <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
-                                data-bs-target="#categoryModal" aria-controls="offCanvasAdd" onclick="addCategoryClick()"><i
-                                    class="bx bx-plus-circle"></i>
-                                Category</button>
-                            <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
-                                data-bs-target="#subCategoryModal" aria-controls="offCanvasAdd"
-                                onclick="addSubCatClick()"><i class="bx bx-plus-circle"></i>
-                                Sub Category</button>
+                            <div class="{{ Auth::user()->user_type == 'user' ? 'd-none' : '' }}">
+                                <button class="btn btn-primary m-2" style="float:right" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#adsCategoryModel" aria-controls="offCanvasAdd"><i
+                                        class="bx bx-plus-circle"></i>
+                                    Ads Category </button>
+                                <button class="btn btn-primary m-2" style="float:right" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#cityModal" aria-controls="offCanvasAdd"
+                                    onclick="addCity()"><i class="bx bx-plus-circle"></i>
+                                    City</button>
+                                <button class="btn btn-primary m-2" style="float:right" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#categoryModal" aria-controls="offCanvasAdd"
+                                    onclick="addCategoryClick()"><i class="bx bx-plus-circle"></i>
+                                    Category</button>
+                                <button class="btn btn-primary m-2" style="float:right" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#subCategoryModal" aria-controls="offCanvasAdd"
+                                    onclick="addSubCatClick()"><i class="bx bx-plus-circle"></i>
+                                    Sub Category</button>
+                            </div>
                             <button class="btn btn-primary m-2" style="float:right" type="button"
                                 data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd" aria-controls="offCanvasAdd"><i
                                     class="bx bx-plus-circle"></i>

@@ -26,6 +26,11 @@
             </li> --}}
 
             <!-- User -->
+            <li class="nav-item me-2 me-xl-0">
+                <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
+                    <i class="bx bx-sm bx-sun"></i>
+                </a>
+            </li>
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
@@ -39,8 +44,8 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ Auth::user()->avatar != '' || Auth::user()->avatar != null ? '/document_bucket/' . Auth::user()->avatar : '/assets/img/avatars/notfoundimag.jpg' }}" alt
-                                            class="w-px-40 rounded-circle" />
+                                        <img src="{{ Auth::user()->avatar != '' || Auth::user()->avatar != null ? '/document_bucket/' . Auth::user()->avatar : '/assets/img/avatars/notfoundimag.jpg' }}"
+                                            alt class="w-px-40 rounded-circle" />
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">

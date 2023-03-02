@@ -13,7 +13,7 @@
         />
         <div class="button-wrapper">
           <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-            <span class="d-none d-sm-block">Upload new photo</span>
+            <span class="d-none d-sm-block">Change Cover Photo</span>
             <i class="bx bx-upload d-block d-sm-none"></i>
             <input
               type="file"

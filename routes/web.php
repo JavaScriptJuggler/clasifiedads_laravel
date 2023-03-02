@@ -55,5 +55,7 @@ Route::prefix('admin')->group(function () {
         ->group(function () {
             Route::get('/', 'index')->name('profile');
             Route::post('/save-profile', 'saveProfile');
+            Route::post('/deactivate-profile', 'deactivateProfile');
+            Route::post('/save-social-links', 'saveSocialLinks');
         });
 });
