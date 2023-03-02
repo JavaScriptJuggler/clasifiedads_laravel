@@ -136,21 +136,35 @@ class adsController extends Controller
     }
 
     /* get all ads */
-    public function getAds()
+    public function getAds(Request $request)
     {
-        if (Auth::user()->user_type == 'admin')
-            $adsDetails = adsModel::orderBy('id', 'desc')->paginate(10);
-        else
-            $adsDetails = adsModel::where('user_id', Auth::id())->orderBy('id', 'desc')->paginate(10);
+        $searchObject = json_decode($request->data);
+        $ads = adsModel::select("*");
+        if (Auth::user()->user_type != 'admin')
+            $ads->where('user_id', Auth::id());
+        if ($searchObject->product_name != null && $searchObject->product_name != '')
+            $ads->where('product_name', 'LIKE', '%' . $request->product_name . '%');
+        if ($searchObject->product_condition != null && $searchObject->product_condition != '')
+            $ads->where('product_condition', 'LIKE', '%' . $searchObject->product_condition . '%');
+        if ($searchObject->product_category != null && $searchObject->product_category != '')
+            $ads->where('product_category', 'LIKE', '%' . $searchObject->product_category . '%');
+        if ($searchObject->price != null && $searchObject->price != '')
+            $ads->where('price', 'LIKE', '%' . $searchObject->price . '%');
+        if ($searchObject->date != null && $searchObject->date != '')
+            $ads->where('date', 'LIKE', '%' . $searchObject->date . '%');
+        if ($searchObject->ad_category != null && $searchObject->ad_category != '')
+            $ads->where('ad_category', 'LIKE', '%' . $searchObject->ad_category . '%');
+        $data = $ads->orderBy('id', 'desc')->paginate(10);
 
         return response()->json([
             'status' => true,
             'message' => 'Data Fetched Successfully',
-            'details' => $adsDetails,
+            'details' => $data,
             'product_category' => productCategoryModel::all(),
             'product_sub_category' => productSubCategoryModel::all(),
             'price_conditions' => priceConditionModel::all(),
             'ads_category' => adsCategoryModel::all(),
+            'test' => $request->all(),
         ]);
     }
 
