@@ -7,8 +7,8 @@
           :src="!typeof productDetails.cover_image === 'undefined' || productDetails.cover_image!=''? '/document_bucket/'+productDetails.cover_image:'/assets/img/avatars/notfoundimag.jpg'"
           alt="user-avatar"
           class="d-block rounded"
-          height="100"
-          width="100"
+          height="200"
+          width="200"
           id="coverImage"
         />
         <div class="button-wrapper">

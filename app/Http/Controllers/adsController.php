@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\adsApprovalModel;
 use App\Models\adsCategoryModel;
 use App\Models\adsModel;
 use App\Models\CitiesModel;
@@ -135,7 +136,10 @@ class adsController extends Controller
             'service_area' => $request->service_area,
         ];
 
-        $isSaved =  adsModel::create($dataArray)->save();
+        if (Auth::user()->user_type == 'admin')
+            $isSaved =  adsModel::create($dataArray)->save();
+        else
+            $isSaved =  adsApprovalModel::create($dataArray)->save();
         return response()->json([
             "status" => $isSaved,
             'message' => 'New Ads Created.'
@@ -508,7 +512,7 @@ class adsController extends Controller
             ]);
         } else {
             unset($input['created_at'], $input['updated_at'], $input['deleted_at']);
-            $dataRetrive = adsModel::find($input['id']);
+            // $dataRetrive = adsModel::find($input['id']);
             /* formating tags */
             $tags = [];
             if (count(json_decode($request->tags))) {
@@ -517,11 +521,19 @@ class adsController extends Controller
                 }
             }
             $input['tags'] = implode(',', $tags);
+            $input['main_ad_id'] = $input['id'];
             /* remove image */
-            if ($dataRetrive->cover_image != '' && !is_string($dataRetrive->cover_image) && file_exists(public_path('/document_bucket/' . $dataRetrive->cover_image)))
-                unlink(public_path('/document_bucket/' . $dataRetrive->cover_image));
-            $getData = adsModel::where('id', $input['id'])->update($input);
-            if ($getData) {
+
+            $getData = adsApprovalModel::where('main_ad_id', $input['id'])->first();
+            if (!empty($getData)) {
+                $input['id'] = $getData->id;
+                if ($getData->cover_image != '' && !is_string($getData->cover_image) && file_exists(public_path('/document_bucket/' . $getData->cover_image)))
+                    unlink(public_path('/document_bucket/' . $getData->cover_image));
+                $goToApproval = adsApprovalModel::where('id', $getData->id)->update($input);
+            } else {
+                $goToApproval = adsApprovalModel::create($input);
+            }
+            if ($goToApproval) {
                 return response()->json([
                     'message' => ["success" => ['Ads submitted successfully for review.. Once review complete it will directly publish at our website']],
                     'status' => true,

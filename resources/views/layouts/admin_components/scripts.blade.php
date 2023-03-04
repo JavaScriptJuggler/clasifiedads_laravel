@@ -16,6 +16,8 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src={{ asset('js/app.js') }}></script>
 <script src="{{ asset('assets/js/jQuery.tagify.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 {{-- <script src="{{ asset('assets/js/extended-ui-perfect-scrollbar.js') }}"></script> --}}
 
 <script>

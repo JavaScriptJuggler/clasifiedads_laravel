@@ -103,7 +103,8 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Management</span>
         </li>
-        <li class="menu-item {{ \Request::is('admin/ads-list') ? 'active open' : '' }}">
+        <li
+            class="menu-item {{ \Request::is('admin/ads-list') || \Request::is('admin/ads-approve') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Ads Management</div>
@@ -114,11 +115,13 @@
                         <div data-i18n="Account">All Ads</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="javascript:;" class="menu-link">
-                        <div data-i18n="Notifications">Ads Request</div>
-                    </a>
-                </li>
+                @if (Auth::user()->user_type == 'admin')
+                    <li class="menu-item {{ \Request::is('admin/ads-approve') ? 'active' : '' }}">
+                        <a href="{{ route('ads-approve.index') }}" class="menu-link">
+                            <div data-i18n="Notifications">Approve Ads</div>
+                        </a>
+                    </li>
+                @endif
                 <li class="menu-item">
                     <a href="javascript:;" class="menu-link">
                         <div data-i18n="Connections">Ads Display</div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adsApproveController;
 use App\Http\Controllers\adsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\profileController;
@@ -57,5 +58,17 @@ Route::prefix('admin')->group(function () {
             Route::post('/save-profile', 'saveProfile');
             Route::post('/deactivate-profile', 'deactivateProfile');
             Route::post('/save-social-links', 'saveSocialLinks');
+        });
+
+    /* ads approval */
+    Route::controller(adsApproveController::class)
+        ->prefix('ads-approve')
+        ->as('ads-approve.')
+        ->group(function () {
+            Route::get('/', 'adsApprove')->name('index')->middleware(['restrict-page']);
+            Route::get('/approve-ads/{recordid}', 'approveAds')->name('approve-ads')->middleware(['restrict-page']);
+            Route::get('/get-unapprove-ads', 'getUnApprovedAds')->name('get-unapproved-ads');
+            Route::post('/delete-approval-request', 'deleteApprovalRequest');
+            Route::post('/approve-ad', 'approveThisAd');
         });
 });

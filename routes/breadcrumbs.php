@@ -25,3 +25,13 @@ Breadcrumbs::for('profile.profile', function (BreadcrumbTrail $trail): void {
     $trail->parent('dashboard');
     $trail->push('Profile', route('profile.profile'));
 });
+
+/* approve ads */
+Breadcrumbs::for('ads-approve.index', function (BreadcrumbTrail $trail): void {
+    $trail->parent('dashboard');
+    $trail->push('Approve Ads', route('ads-approve.index'));
+});
+Breadcrumbs::for('ads-approve.approve-ads', function (BreadcrumbTrail $trail, $recordid): void {
+    $trail->parent('ads-approve.index');
+    $trail->push('View Ad', route('ads-approve.approve-ads', ['recordid' => $recordid]));
+});

@@ -100,7 +100,7 @@
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody class="table-border-bottom-0">
+            <tbody class="table-border-bottom-0" v-if="(gettingDataOnLoad.adsListData.data)?.length">
               <tr :key="ad.id" v-for="ad in gettingDataOnLoad.adsListData.data">
                 <td>
                   <i class="fab fa-angular fa-lg text-danger me-3"></i>
@@ -125,6 +125,11 @@
                     <i class="bx bx-show"></i>
                   </a>
                 </td>
+              </tr>
+            </tbody>
+            <tbody class="table-border-bottom-0" v-else>
+              <tr>
+                <td colspan="8" class="text-center">Ads will be appeare here after approving by admin</td>
               </tr>
             </tbody>
           </table>
