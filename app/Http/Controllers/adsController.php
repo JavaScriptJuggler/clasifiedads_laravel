@@ -99,6 +99,13 @@ class adsController extends Controller
                 array_push($tags, $value->value);
             }
         }
+
+        $payment_modes = [];
+        if (count(json_decode($request->payment_mode))) {
+            foreach (json_decode($request->payment_mode) as $key => $value) {
+                array_push($payment_modes, $value->value);
+            }
+        }
         $dataArray = [
             'product_name' => $request->productName,
             'cover_image' => $request->image != '' ? imageUploader($request) : '',
@@ -123,7 +130,7 @@ class adsController extends Controller
             'city_id' => $request->city,
             'city_name' => CitiesModel::find($request->city)->city_name,
             'units' => $request->unit,
-            'payment_mode' => $request->payment_mode,
+            'payment_mode' => implode(',', $payment_modes),
             'tags' => implode(',', $tags),
             'service_area' => $request->service_area,
         ];

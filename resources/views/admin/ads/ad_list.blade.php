@@ -219,7 +219,8 @@
                 </div>
                 <div class="col mb-3">
                     <label for="emailWithTitle" class="form-label">Payment Mode</label>
-                    <select name="payment_mode" id="payment_mode" required class="form-control">
+                    <input type="text" name="payment_mode" id="payment_mode" class="form-control">
+                    {{-- <select name="payment_mode" id="payment_mode" required class="form-control">
                         <option value="" style="display:none">Select Payment Mode</option>
                         <option>UPI</option>
                         <option>Credit/Debit Cards</option>
@@ -227,7 +228,7 @@
                         <option>COD</option>
                         <option>Electronic Bank Transfers</option>
                         <option>Digital/Mobile Wallet</option>
-                    </select>
+                    </select> --}}
                 </div>
                 <div class="col mb-3">
                     <label for="" class="form-label">Product Tags</label>
@@ -504,6 +505,21 @@
         $(function() {
             var input = document.querySelector('input[name=product_tags]');
             new Tagify(input)
+
+            var input = document.querySelector('input[name="payment_mode"]'),
+                // init Tagify script on the above inputs
+                tagify = new Tagify(input, {
+                    whitelist: ['UPI', 'Credit/Debit Cards', 'Cash', 'COD', 'Electronic Bank Transfers',
+                        'Digital/Mobile Wallet'
+                    ],
+                    maxTags: 10,
+                    dropdown: {
+                        maxItems: 20, // <- mixumum allowed rendered suggestions
+                        classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
+                        enabled: 0, // <- show suggestions on focus
+                        closeOnSelect: false // <- do not hide the suggestions dropdown once an item has been selected
+                    }
+                })
         });
 
         const addAdsCategory = () => {

@@ -13,7 +13,7 @@ export default {
     mode: String,
     settings: Object,
     initialValue: Array,
-    onChange: Function
+    onChange: Function,
   },
   watch: {
     initialValue(newVal, oldVal) {

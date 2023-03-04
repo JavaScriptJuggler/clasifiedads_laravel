@@ -207,7 +207,13 @@
           Payment Method
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
-        <select name id="payment_method" v-model="productDetails.payment_mode" class="form-control">
+        <select
+          multiple
+          name
+          id="payment_method"
+          v-model="selected_payment_methods"
+          class="form-control"
+        >
           <option value style="display:none">Payment Method</option>
           <option v-for="payment in payment_methods" :key="payment">{{ payment }}</option>
         </select>
@@ -300,6 +306,7 @@ export default {
       product_conditions: ["New", "Used"],
       cities: [],
       tagifyValue: [],
+      selected_payment_methods: [],
       service_areas: [
         "All India",
         "State",
@@ -399,7 +406,9 @@ export default {
       var form_data = new FormData();
 
       for (var key in this.productDetails) {
-        form_data.append(key, this.productDetails[key]);
+        if (key != "payment_mode")
+          form_data.append(key, this.productDetails[key]);
+        else form_data.append(key, this.selected_payment_methods);
       }
       if (document.querySelector("#upload").value != "") {
         form_data.set(
@@ -451,6 +460,9 @@ export default {
             this.adscategories = response.data.ads_category;
             this.cities = response.data.cities;
             this.tagifyValue = response.data.ads_details.tags.split(",");
+            this.selected_payment_methods = this.productDetails.payment_mode.split(
+              ","
+            );
           }
         })
         .catch(error => {});

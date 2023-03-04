@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tagify.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-misc.css') }}" />
+    <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
     <style>
         #template-customizer {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
