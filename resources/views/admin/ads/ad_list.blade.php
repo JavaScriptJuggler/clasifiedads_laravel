@@ -32,7 +32,7 @@
                                 <div
                                     class="card-header container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
                                     <div>
-                                        {{-- <h5 class="mb-0">Ads List</h5> --}}
+                                        <h5 class="mb-0">Approved Ads List</h5>
                                     </div>
                                     <div style="display:contents;">
                                         <div class="{{ Auth::user()->user_type == 'user' ? 'd-none' : '' }}"
@@ -70,6 +70,13 @@
                 </div>
                 @if (Auth::user()->user_type != 'admin')
                     <div class="tab-pane fade" id="navs-top-profile" role="tabpanel" style="overflow-y: auto">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <h5 class="mb-3 py-3 mt-2">Pending for Approval</h5>
+                                </div>
+                            </div>
+                        </div>
                         <ads-approval></ads-approval>
                     </div>
                 @endif
