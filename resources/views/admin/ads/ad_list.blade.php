@@ -13,14 +13,16 @@
                             class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ml-1">{{ $approved_ads }}</span>
                     </button>
                 </li>
-                <li class="nav-item">
-                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">
-                        Pending For Approval
-                        <span
-                            class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ml-1">{{ $un_approved_ads }}</span>
-                    </button>
-                </li>
+                @if (Auth::user()->user_type != 'admin')
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                            data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">
+                            Pending For Approval
+                            <span
+                                class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ml-1">{{ $un_approved_ads }}</span>
+                        </button>
+                    </li>
+                @endif
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
@@ -66,9 +68,11 @@
                         <ads-list></ads-list>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="navs-top-profile" role="tabpanel" style="overflow-y: auto">
-                    <ads-approval></ads-approval>
-                </div>
+                @if (Auth::user()->user_type != 'admin')
+                    <div class="tab-pane fade" id="navs-top-profile" role="tabpanel" style="overflow-y: auto">
+                        <ads-approval></ads-approval>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
