@@ -172,11 +172,13 @@
                                     <div class="flex-grow-1 row">
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Facebook</h6>
-                                            <small class="text-muted">Not Connected</small>
+                                            <small
+                                            class="{{ !empty($social_media) && $social_media->facebook != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->facebook != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
-                                            <input type="text" class="form-control" placeholder="https://www.facebook.com/"
+                                            <input type="text" class="form-control"
+                                                placeholder="https://www.facebook.com/"
                                                 value="{{ !empty($social_media) ? $social_media->facebook : '' }}"
                                                 name="facebook">
                                         </div>
@@ -189,7 +191,8 @@
                                     </div>
                                     <div class="flex-grow-1 row">
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
-                                            <h6 class="mb-0">Twitter</h6>
+                                            <small
+                                            class="{{ !empty($social_media) && $social_media->twitter != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->twitter != '' ? 'Connected' : 'Not Connected' }}</small>
                                             <small class="text-muted">Not Connected</small>
                                         </div>
 
@@ -208,11 +211,13 @@
                                     <div class="flex-grow-1 row">
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Instagram</h6>
-                                            <small class="text-muted">Not Connected</small>
+                                            <small
+                                            class="{{ !empty($social_media) && $social_media->instagram != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->instagram != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
-                                            <input type="text" class="form-control" placeholder="https://www.instagram.com/"
+                                            <input type="text" class="form-control"
+                                                placeholder="https://www.instagram.com/"
                                                 value="{{ !empty($social_media) ? $social_media->instagram : '' }}"
                                                 name="instagram">
                                         </div>
@@ -220,13 +225,14 @@
                                 </div>
                                 <div class="d-flex mb-3">
                                     <div class="flex-shrink-0">
-                                        <img src="../assets/img/icons/brands/linkedin.png" alt="linkedin" class="me-3"
-                                            height="30" />
+                                        <img src="{{ asset('assets/img/icons/brands/linkedin.png') }}" alt="linkedin"
+                                            class="me-3" height="30" />
                                     </div>
                                     <div class="flex-grow-1 row">
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Linkedin</h6>
-                                            <small class="text-muted">Not Connected</small>
+                                            <small
+                                            class="{{ !empty($social_media) && $social_media->linkedin != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->linkedin != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
@@ -238,13 +244,14 @@
                                 </div>
                                 <div class="d-flex mb-3">
                                     <div class="flex-shrink-0">
-                                        <img src="../assets/img/icons/brands/whatsapp.png" alt="whatsapp" class="me-3"
-                                            height="30" />
+                                        <img src="{{ asset('assets/img/icons/brands/whatsapp.png') }}" alt="whatsapp"
+                                            class="me-3" height="30" />
                                     </div>
                                     <div class="flex-grow-1 row">
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Whatsapp</h6>
-                                            <small class="text-muted">Not Connected</small>
+                                            <small
+                                            class="{{ !empty($social_media) && $social_media->whatsapp != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->whatsapp != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
@@ -258,19 +265,41 @@
                                 </div>
                                 <div class="d-flex mb-3">
                                     <div class="flex-shrink-0">
-                                        <img src="../assets/img/icons/brands/youtube.png" alt="youtube" class="me-3"
-                                            height="30" />
+                                        <img src="{{ asset('assets/img/icons/brands/youtube.png') }}" alt="youtube"
+                                            class="me-3" height="30" />
                                     </div>
                                     <div class="flex-grow-1 row">
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Youtube</h6>
-                                            <small class="text-muted">Not Connected</small>
+                                            <small
+                                            class="{{ !empty($social_media) && $social_media->youtube != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->youtube != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
-                                            <input type="text" class="form-control" placeholder="https://www.youtube.com/"
+                                            <input type="text" class="form-control"
+                                                placeholder="https://www.youtube.com/"
                                                 value="{{ !empty($social_media) ? $social_media->youtube : '' }}"
                                                 name="youtube">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{ asset('assets/img/icons/brands/global.png') }}" alt="youtube"
+                                            class="me-3" height="30" />
+                                    </div>
+                                    <div class="flex-grow-1 row">
+                                        <div class="col-12 col-sm-12 mb-sm-0 mb-2">
+                                            <h6 class="mb-0">Website</h6>
+                                            <small
+                                                class="{{ !empty($social_media) && $social_media->website != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->website != '' ? 'Connected' : 'Not Connected' }}</small>
+                                        </div>
+
+                                        <div class="col-12 col-sm-12 text-end">
+                                            <input type="text" class="form-control"
+                                                placeholder="https://www.my-site.com/"
+                                                value="{{ !empty($social_media) ? $social_media->website : '' }}"
+                                                name="website">
                                         </div>
                                     </div>
                                 </div>

@@ -128,7 +128,7 @@
       </div>
       <div class="col-md-4 mb-2">
         <label for class="form-label">
-          Ads Category
+          Ads Type
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
         <select
@@ -204,7 +204,7 @@
       </div>
       <div class="col-md-4 mb-2">
         <label for class="form-label">
-          Payment Method
+          Payment Types
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
         <select

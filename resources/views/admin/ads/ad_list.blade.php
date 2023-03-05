@@ -40,7 +40,7 @@
                                             <button class="btn btn-primary m-2" style="float:right" type="button"
                                                 data-bs-toggle="modal" data-bs-target="#adsCategoryModel"
                                                 aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
-                                                Ads Category </button>
+                                                Ads Type </button>
                                             <button class="btn btn-primary m-2" style="float:right" type="button"
                                                 data-bs-toggle="modal" data-bs-target="#cityModal"
                                                 aria-controls="offCanvasAdd" onclick="addCity()"><i
@@ -254,7 +254,7 @@
                     </select>
                 </div>
                 <div class="col mb-3">
-                    <label for="emailWithTitle" class="form-label">Payment Mode</label>
+                    <label for="emailWithTitle" class="form-label">Payment Types</label>
                     <input type="text" name="payment_mode" id="payment_mode" class="form-control">
                     {{-- <select name="payment_mode" id="payment_mode" required class="form-control">
                         <option value="" style="display:none">Select Payment Mode</option>
@@ -487,7 +487,7 @@
                             <input type="text" id="adsCategortyTextInput" class="form-control">
                         </div>
                         <div class="col-6 mb-3">
-                            <label for="nameWithTitle" class="form-label">Ads Category Colour</label>
+                            <label for="nameWithTitle" class="form-label">Ads Type Colour</label>
                             <input type="color" id="adsCategortyColorInput" class="form-control">
                         </div>
                     </div>

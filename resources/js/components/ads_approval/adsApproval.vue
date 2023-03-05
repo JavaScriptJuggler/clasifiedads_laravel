@@ -13,7 +13,7 @@
                 <th>Product Price</th>
                 <th>Price Condition</th>
                 <th>Product Condition</th>
-                <th>Ads Category</th>
+                <th>Ads Type</th>
                 <th>Actions</th>
               </tr>
             </thead>
