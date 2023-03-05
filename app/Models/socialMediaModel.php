@@ -18,5 +18,6 @@ class socialMediaModel extends Model
         'youtube',
         'whatsapp',
         'user_id',
+        'website',
     ];
 }
