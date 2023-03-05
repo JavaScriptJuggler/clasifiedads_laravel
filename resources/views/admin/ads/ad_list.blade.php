@@ -3,44 +3,76 @@
 @section('content')
 
     <div class="row">
-        <div class="card" style="overflow-y: auto">
-            <div class="row">
-                <div class="col-md-12">
-                    <div
-                        class="card-header container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
-                        <div>
-                            <h5 class="mb-0">Ads List</h5>
-                        </div>
-                        <div style="display:contents;">
-                            <div class="{{ Auth::user()->user_type == 'user' ? 'd-none' : '' }}" style="display:contents;">
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#adsCategoryModel"
-                                    aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
-                                    Ads Category </button>
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#cityModal" aria-controls="offCanvasAdd"
-                                    onclick="addCity()"><i class="bx bx-plus-circle"></i>
-                                    City</button>
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#categoryModal" aria-controls="offCanvasAdd"
-                                    onclick="addCategoryClick()"><i class="bx bx-plus-circle"></i>
-                                    Category</button>
-                                <button class="btn btn-primary m-2" style="float:right" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#subCategoryModal" aria-controls="offCanvasAdd"
-                                    onclick="addSubCatClick()"><i class="bx bx-plus-circle"></i>
-                                    Sub Category</button>
+        <div class="nav-align-top mb-4">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-top-home" aria-controls="navs-top-home" aria-selected="true">
+                        Approved Ads
+                        <span
+                            class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ml-1">{{ $approved_ads }}</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-top-profile" aria-controls="navs-top-profile" aria-selected="false">
+                        Pending For Approval
+                        <span
+                            class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ml-1">{{ $un_approved_ads }}</span>
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+                    <div class="card" style="overflow-y: auto;box-shadow: 0 0 0 0;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div
+                                    class="card-header container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+                                    <div>
+                                        {{-- <h5 class="mb-0">Ads List</h5> --}}
+                                    </div>
+                                    <div style="display:contents;">
+                                        <div class="{{ Auth::user()->user_type == 'user' ? 'd-none' : '' }}"
+                                            style="display:contents;">
+                                            <button class="btn btn-primary m-2" style="float:right" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#adsCategoryModel"
+                                                aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
+                                                Ads Category </button>
+                                            <button class="btn btn-primary m-2" style="float:right" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#cityModal"
+                                                aria-controls="offCanvasAdd" onclick="addCity()"><i
+                                                    class="bx bx-plus-circle"></i>
+                                                City</button>
+                                            <button class="btn btn-primary m-2" style="float:right" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#categoryModal"
+                                                aria-controls="offCanvasAdd" onclick="addCategoryClick()"><i
+                                                    class="bx bx-plus-circle"></i>
+                                                Category</button>
+                                            <button class="btn btn-primary m-2" style="float:right" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#subCategoryModal"
+                                                aria-controls="offCanvasAdd" onclick="addSubCatClick()"><i
+                                                    class="bx bx-plus-circle"></i>
+                                                Sub Category</button>
+                                        </div>
+                                        <button class="btn btn-primary m-2" style="float:right" type="button"
+                                            data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd"
+                                            aria-controls="offCanvasAdd"><i class="bx bx-plus-circle"></i>
+                                            New Ad</button>
+                                    </div>
+                                </div>
                             </div>
-                            <button class="btn btn-primary m-2" style="float:right" type="button"
-                                data-bs-toggle="offcanvas" data-bs-target="#offCanvasAdd" aria-controls="offCanvasAdd"><i
-                                    class="bx bx-plus-circle"></i>
-                                New Ad</button>
                         </div>
+                        <ads-list></ads-list>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="navs-top-profile" role="tabpanel" style="overflow-y: auto">
+                    <ads-approval></ads-approval>
+                </div>
             </div>
-            <ads-list></ads-list>
         </div>
     </div>
+
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasAdd" aria-labelledby="offcanvasEndLabel">
         <div class="offcanvas-header">
             <h5 id="offcanvasEndLabel" class="offcanvas-title">Add Product</h5>

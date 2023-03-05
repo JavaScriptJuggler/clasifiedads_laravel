@@ -15,14 +15,15 @@ import 'vue-loading-overlay/dist/css/index.css';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
 import adsList from './components/ads/adsList.vue'
 import viewAds from './components/ads/viewAds.vue'
 import Tags from './components/partials/tagify.vue'
+import adsApproval from './components/ads_approval/adsApproval.vue'
 
 app.component('ads-list', adsList);
 app.component('view-ads', viewAds);
 app.component('tagify', Tags);
+app.component('ads-approval', adsApproval);
 
 /**
  * The following block of code may be used to automatically register your

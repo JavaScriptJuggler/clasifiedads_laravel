@@ -70,5 +70,6 @@ Route::prefix('admin')->group(function () {
             Route::get('/get-unapprove-ads', 'getUnApprovedAds')->name('get-unapproved-ads');
             Route::post('/delete-approval-request', 'deleteApprovalRequest');
             Route::post('/approve-ad', 'approveThisAd');
+            Route::get('/get-all-unapproved-ads', 'getAllUnApprovedAds');
         });
 });

@@ -31,6 +31,8 @@ class adsController extends Controller
             'price_conditions' => priceConditionModel::all(),
             'ads_category' => adsCategoryModel::all(),
             'cities' => CitiesModel::all(),
+            'approved_ads' => adsModel::where('user_id', Auth::id())->count(),
+            'un_approved_ads' => adsApprovalModel::where('user_id', Auth::id())->count(),
         ]);
         return view('admin.ads.ad_list');
     }

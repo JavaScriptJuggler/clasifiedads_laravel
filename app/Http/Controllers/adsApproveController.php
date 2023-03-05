@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\adsApprovalModel;
 use App\Models\adsModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class adsApproveController extends Controller
@@ -145,5 +146,13 @@ class adsApproveController extends Controller
                 }
             }
         }
+    }
+
+    public function getAllUnApprovedAds()
+    {
+        return response()->json([
+            'status' => true,
+            'details' => adsApprovalModel::where('user_id', Auth::id())->paginate(10),
+        ]);
     }
 }
