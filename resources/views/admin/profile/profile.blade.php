@@ -131,6 +131,42 @@
                     </div>
                     <!-- /Account -->
                 </div>
+                <div class="card mb-4">
+                    <h5 class="card-header">Change Password</h5>
+                    <div class="card-body">
+                        <div class="mb-3 col-12 mb-0">
+                        </div>
+                        <form id="formChangePassword" onsubmit="formChangePassword(event)">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="" class="form-label">Current Password</label>
+                                        <input type="text" name="current_password" placeholder="***********"
+                                            class="form-control">
+                                        <span class="text-danger d-none" id="current_password"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-2">
+                                        <label for="" class="form-label">New Password</label>
+                                        <input type="text" name="new_password" placeholder="***********"
+                                            class="form-control">
+                                        <span class="text-danger d-none" id="new_password"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label for="" class="form-label">Confirm Password</label>
+                                        <input type="text" placeholder="***********" name="confirm_password"
+                                            class="form-control">
+                                        <span class="text-danger d-none" id="confirm_password"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary change-password">Change My Password</button>
+                        </form>
+                    </div>
+                </div>
                 <div class="card">
                     <h5 class="card-header">Delete Account</h5>
                     <div class="card-body">
@@ -143,7 +179,7 @@
                                     certain. </p>
                             </div>
                         </div>
-                        <form id="formAccountDeactivation" onsubmit="submitformAccountDeactivation(event)">
+                        <form id="changePasswordForm" onsubmit="changePasswordForm(event)">
                             <div class="form-check mb-3">
                                 <input class="form-check-input" required type="checkbox" name="accountActivation"
                                     id="accountActivation" />
@@ -173,7 +209,7 @@
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Facebook</h6>
                                             <small
-                                            class="{{ !empty($social_media) && $social_media->facebook != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->facebook != '' ? 'Connected' : 'Not Connected' }}</small>
+                                                class="{{ !empty($social_media) && $social_media->facebook != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->facebook != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
@@ -192,7 +228,7 @@
                                     <div class="flex-grow-1 row">
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <small
-                                            class="{{ !empty($social_media) && $social_media->twitter != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->twitter != '' ? 'Connected' : 'Not Connected' }}</small>
+                                                class="{{ !empty($social_media) && $social_media->twitter != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->twitter != '' ? 'Connected' : 'Not Connected' }}</small>
                                             <small class="text-muted">Not Connected</small>
                                         </div>
 
@@ -212,7 +248,7 @@
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Instagram</h6>
                                             <small
-                                            class="{{ !empty($social_media) && $social_media->instagram != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->instagram != '' ? 'Connected' : 'Not Connected' }}</small>
+                                                class="{{ !empty($social_media) && $social_media->instagram != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->instagram != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
@@ -232,7 +268,7 @@
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Linkedin</h6>
                                             <small
-                                            class="{{ !empty($social_media) && $social_media->linkedin != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->linkedin != '' ? 'Connected' : 'Not Connected' }}</small>
+                                                class="{{ !empty($social_media) && $social_media->linkedin != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->linkedin != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
@@ -251,7 +287,7 @@
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Whatsapp</h6>
                                             <small
-                                            class="{{ !empty($social_media) && $social_media->whatsapp != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->whatsapp != '' ? 'Connected' : 'Not Connected' }}</small>
+                                                class="{{ !empty($social_media) && $social_media->whatsapp != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->whatsapp != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
@@ -272,7 +308,7 @@
                                         <div class="col-12 col-sm-12 mb-sm-0 mb-2">
                                             <h6 class="mb-0">Youtube</h6>
                                             <small
-                                            class="{{ !empty($social_media) && $social_media->youtube != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->youtube != '' ? 'Connected' : 'Not Connected' }}</small>
+                                                class="{{ !empty($social_media) && $social_media->youtube != '' ? 'text-success' : 'text-muted' }}">{{ !empty($social_media) && $social_media->youtube != '' ? 'Connected' : 'Not Connected' }}</small>
                                         </div>
 
                                         <div class="col-12 col-sm-12 text-end">
@@ -316,6 +352,40 @@
         </div>
     </div>
     <script>
+        const formChangePassword = (e) => {
+            e.preventDefault();
+            holdOn('Changinf Password...Please Wait');
+            let formData = new FormData($('#formChangePassword')[0]);
+            axios({
+                    method: 'post',
+                    url: '/admin/profile/change-password',
+                    data: formData,
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+
+                .then(response => {
+                    closeHoldOn();
+                    $('#current_password , #new_password , #confirm_password').addClass('d-none');
+                    if (response.data.status) {
+                        showToast('Success', response.data.message, 'success', true, 'green');
+                        setTimeout(() => {
+                            location.reload();
+                        }, 3000);
+                    } else {
+                        if (response.data.hasOwnProperty('error')) {
+                            const keys = Object.keys(response.data.error);
+                            keys.forEach((key, index) => {
+                                $(`#${key}`).removeClass('d-none').text(response.data.error[key][0]);
+                            });
+                        }
+                    }
+                })
+
+                .catch(error => console.log(error));
+        }
+
         const linkFormSubmit = (e) => {
             e.preventDefault();
             holdOn('Saving Social Media Links... Please Wait')

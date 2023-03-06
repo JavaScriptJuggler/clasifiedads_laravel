@@ -7,6 +7,8 @@ use App\Models\socialMediaModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class profileController extends Controller
 {
@@ -14,7 +16,7 @@ class profileController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         view()->share([
@@ -82,6 +84,48 @@ class profileController extends Controller
                 'status' => $flag,
                 'message' => $flag ? 'Links Created Successfully' : 'Something went wrong.. Please contact developer',
             ]);
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        if (!empty($request)) {
+            if (Hash::check($request->current_password, Auth::user()->password)) {
+                $validator = Validator::make($request->all(), [
+                    'new_password' => 'required|min:8',
+                    'confirm_password' => 'required|same:new_password'
+                ]);
+                if ($validator->fails()) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Some Error Occoured',
+                        'error' => $validator->messages(),
+                    ]);
+                } else {
+                    $getUser = User::whereId(Auth::id())->update([
+                        'password' => Hash::make($request->new_password),
+                    ]);
+                    if ($getUser) {
+                        return response()->json([
+                            'status' => true,
+                            'message' => 'Password Changed Successfully',
+                        ]);
+                    } else {
+                        return response()->json([
+                            'status' => false,
+                            'message' => 'Something went wrong...'
+                        ]);
+                    }
+                }
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Current password dosen't match",
+                    'error' => [
+                        'current_password' => ['Current password dosenot match'],
+                    ],
+                ]);
+            }
         }
     }
 }

@@ -58,6 +58,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/save-profile', 'saveProfile');
             Route::post('/deactivate-profile', 'deactivateProfile');
             Route::post('/save-social-links', 'saveSocialLinks');
+            Route::post('/change-password','changePassword');
         });
 
     /* ads approval */
