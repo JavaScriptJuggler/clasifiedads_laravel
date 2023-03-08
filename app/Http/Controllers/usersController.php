@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\adsModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class usersController extends Controller
 {
@@ -43,5 +45,30 @@ class usersController extends Controller
             'user_details' => User::find($userid),
         ]);
         return view('admin.users.user_details');
+    }
+
+    public function getApprovedAds(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = adsModel::where('user_id', $request->userid)->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '
+                    <a class="edit btn btn-success btn-sm" href="' . route('users.show-approve-ad', ['recordid' => $row->id, 'action' => 'view', 'userid' => $row->user_id]) . '">View</a>
+                    <a href="javascript:void(0)" onclick=deleteRecord("' . $row->id . '") class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
+    public function viewAd($recordid = '', $action = '')
+    {
+        view()->share([
+            'page_name' => 'View Ads',
+        ]);
+        return view('admin.ads.view_ads');
     }
 }

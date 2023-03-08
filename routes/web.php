@@ -83,5 +83,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/', 'usersList')->name('index')->middleware(['restrict-page']);
             Route::get('/get-all-users', 'getAllusers')->name('get-all-users')->middleware(['restrict-page']);
             Route::get('/show-user-details/{userid}', 'showUserDetails')->name('show-user-details')->middleware(['restrict-page']);
+            Route::get('/get-unapproved-ads', 'getUnApprovedAds')->name('get-unapproved-ads')->middleware(['restrict-page']);
+            Route::get('/show-approve-ad/{recordid}/{action}/{userid}', 'viewAd')->name('show-approve-ad')->middleware(['restrict-page']);
+            Route::get('/get-approved-ads/{userid}', 'getApprovedAds')->name('get-approved-ads')->middleware(['restrict-page']);
         });
 });

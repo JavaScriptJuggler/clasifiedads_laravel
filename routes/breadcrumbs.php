@@ -45,3 +45,7 @@ Breadcrumbs::for('users.show-user-details', function (BreadcrumbTrail $trail, $u
     $trail->parent('users.index');
     $trail->push('User Details', route('users.show-user-details', ['userid' => $userid]));
 });
+Breadcrumbs::for('users.show-approve-ad', function (BreadcrumbTrail $trail, $recordid, $action, $userid): void {
+    $trail->parent('users.show-user-details', $userid);
+    $trail->push('Ad Details', route('users.show-approve-ad', ['recordid' => $recordid, 'action' => $action, 'userid' => $userid]));
+});

@@ -420,11 +420,17 @@ export default {
     VueMultiImageUpload
   },
   created() {
+    var id = "";
+    var action = "";
     var urlParams = window.location.href.split("/");
-    let action = urlParams.pop();
-    if (action == "view") this.isViewing = true;
-    else this.isViewing = false;
-    let id = urlParams[urlParams.length - 1];
+    urlParams.forEach((element, index) => {
+      if (element == "view" || element == "edit") {
+        action = urlParams[index];
+        if (action == "view") this.isViewing = true;
+        else this.isViewing = false;
+        id = urlParams[index - 1];
+      }
+    });
     this.getAdsDetails(id);
   },
   mounted() {
