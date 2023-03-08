@@ -153,8 +153,7 @@ class adsController extends Controller
     {
         $searchObject = json_decode($request->data);
         $ads = adsModel::select("*");
-        if (Auth::user()->user_type != 'admin')
-            $ads->where('user_id', Auth::id());
+        $ads->where('user_id', Auth::id());
         if ($searchObject->product_name != null && $searchObject->product_name != '')
             $ads->where('product_name', 'LIKE', '%' . $request->product_name . '%');
         if ($searchObject->product_condition != null && $searchObject->product_condition != '')
@@ -448,7 +447,7 @@ class adsController extends Controller
     }
 
     /* view ads */
-    public function viewAds($recordid)
+    public function viewAds($recordid, $action)
     {
         view()->share([
             'page_name' => 'View Ads',
@@ -496,7 +495,7 @@ class adsController extends Controller
     {
         $input = $request->all();
         $validatorArr = [];
-        if (!is_string($input['cover_image'])) {
+        if (!is_string($input['cover_image']) && $input['cover_image'] != null) {
             $input['cover_image'] = imageUploader($request, 'cover_image');
         }
         if (count($input) > 0) {
@@ -532,8 +531,30 @@ class adsController extends Controller
                 if ($getData->cover_image != '' && !is_string($getData->cover_image) && file_exists(public_path('/document_bucket/' . $getData->cover_image)))
                     unlink(public_path('/document_bucket/' . $getData->cover_image));
                 $goToApproval = adsApprovalModel::where('id', $getData->id)->update($input);
+                if (Auth::user()->user_type == 'admin') {
+                    $request_approve = new Request();
+                    $request_approve->setMethod('POST');
+                    $request_approve->request->add(['id' => $getData->id]);
+                    if (app('App\Http\Controllers\adsApproveController')->approveThisAd($request_approve))
+                        return response()->json([
+                            'message' => ["success" => ['Ads Published Successsully']],
+                            'status' => true,
+                            'class' => 'success',
+                        ]);
+                }
             } else {
                 $goToApproval = adsApprovalModel::create($input);
+                if (Auth::user()->user_type == 'admin') {
+                    $request_approve = new Request();
+                    $request_approve->setMethod('POST');
+                    $request_approve->request->add(['id' => $goToApproval->id]);
+                    if (app('App\Http\Controllers\adsApproveController')->approveThisAd($request_approve))
+                        return response()->json([
+                            'message' => ["success" => ['Ads Published Successsully']],
+                            'status' => true,
+                            'class' => 'success',
+                        ]);
+                }
             }
             if ($goToApproval) {
                 return response()->json([

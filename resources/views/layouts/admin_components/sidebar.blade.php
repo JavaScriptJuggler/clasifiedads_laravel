@@ -129,5 +129,18 @@
                 </li>
             </ul>
         </li>
+        <li class="menu-item {{ \Request::is('admin/users') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Account Settings">Users Management</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ \Request::is('admin/users') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}" class="menu-link">
+                        <div data-i18n="Account">All Users</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </aside>

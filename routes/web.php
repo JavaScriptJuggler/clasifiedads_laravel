@@ -4,6 +4,7 @@ use App\Http\Controllers\adsApproveController;
 use App\Http\Controllers\adsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\profileController;
+use App\Http\Controllers\usersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -44,7 +45,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/delete-sub-category', 'deleteProductSubCategory');
             Route::post('/delete-city', 'deleteCity');
             Route::post('/delete-ads-category', 'deleteAdsCategory');
-            Route::get('/view-ads/{recordid}', 'viewAds')->name('view-ads');
+            Route::get('/view-ads/{recordid}/{action}', 'viewAds')->name('view-ads');
             Route::post('/get-ads-details', 'getAdsDetails');
             Route::post('/update-ads', 'updateAds');
         });
@@ -58,7 +59,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/save-profile', 'saveProfile');
             Route::post('/deactivate-profile', 'deactivateProfile');
             Route::post('/save-social-links', 'saveSocialLinks');
-            Route::post('/change-password','changePassword');
+            Route::post('/change-password', 'changePassword');
         });
 
     /* ads approval */
@@ -72,5 +73,15 @@ Route::prefix('admin')->group(function () {
             Route::post('/delete-approval-request', 'deleteApprovalRequest');
             Route::post('/approve-ad', 'approveThisAd');
             Route::get('/get-all-unapproved-ads', 'getAllUnApprovedAds');
+        });
+
+    /* users */
+    Route::controller(usersController::class)
+        ->prefix('users')
+        ->as('users.')
+        ->group(function () {
+            Route::get('/', 'usersList')->name('index')->middleware(['restrict-page']);
+            Route::get('/get-all-users', 'getAllusers')->name('get-all-users')->middleware(['restrict-page']);
+            Route::get('/show-user-details/{userid}', 'showUserDetails')->name('show-user-details')->middleware(['restrict-page']);
         });
 });

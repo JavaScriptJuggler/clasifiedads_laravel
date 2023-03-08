@@ -13,11 +13,11 @@ Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail): void {
 /* ads */
 Breadcrumbs::for('ads.ads-list', function (BreadcrumbTrail $trail): void {
     $trail->parent('dashboard');
-    $trail->push('My Ads', route('ads.ads-list'));
+    $trail->push('Ads', route('ads.ads-list'));
 });
-Breadcrumbs::for('ads.view-ads', function (BreadcrumbTrail $trail, $recordid): void {
+Breadcrumbs::for('ads.view-ads', function (BreadcrumbTrail $trail, $recordid, $action): void {
     $trail->parent('ads.ads-list');
-    $trail->push('View Ads', route('ads.view-ads', ['recordid' => $recordid]));
+    $trail->push('View Ads', route('ads.view-ads', ['recordid' => $recordid, 'action' => $action]));
 });
 
 /* profile */
@@ -34,4 +34,14 @@ Breadcrumbs::for('ads-approve.index', function (BreadcrumbTrail $trail): void {
 Breadcrumbs::for('ads-approve.approve-ads', function (BreadcrumbTrail $trail, $recordid): void {
     $trail->parent('ads-approve.index');
     $trail->push('View Ad', route('ads-approve.approve-ads', ['recordid' => $recordid]));
+});
+
+/* users */
+Breadcrumbs::for('users.index', function (BreadcrumbTrail $trail): void {
+    $trail->parent('dashboard');
+    $trail->push('Users', route('users.index'));
+});
+Breadcrumbs::for('users.show-user-details', function (BreadcrumbTrail $trail, $userid): void {
+    $trail->parent('users.index');
+    $trail->push('User Details', route('users.show-user-details', ['userid' => $userid]));
 });

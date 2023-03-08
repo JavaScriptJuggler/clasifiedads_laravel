@@ -11,7 +11,7 @@
           width="200"
           id="coverImage"
         />
-        <div class="button-wrapper">
+        <div class="button-wrapper" v-if="!isViewing">
           <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
             <span class="d-none d-sm-block">Change Cover Photo</span>
             <i class="bx bx-upload d-block d-sm-none"></i>
@@ -34,7 +34,12 @@
           Product Name
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
-        <input type="text" class="form-control" v-model="productDetails.product_name" />
+        <input
+          type="text"
+          :readonly="isViewing"
+          class="form-control"
+          v-model="productDetails.product_name"
+        />
       </div>
       <div class="col-md-4 mb-2">
         <label for class="form-label">
@@ -47,6 +52,7 @@
           class="form-control"
           v-model="productDetails.product_category"
           v-on:change="changeCategory($event)"
+          :readonly="isViewing"
         >
           <option value style="display:none">Select Category</option>
           <option
@@ -67,6 +73,7 @@
           class="form-control"
           v-model="productDetails.product_sub_category"
           v-on:click="getIdsOfSelected($event)"
+          :readonly="isViewing"
         >
           <option value style="display:none">Select Sub-Category</option>
           <option
@@ -86,6 +93,7 @@
           v-model="productDetails.price"
           class="form-control"
           placeholder="Product Price"
+          :readonly="isViewing"
         />
       </div>
       <div class="col-md-4 mb-2">
@@ -99,6 +107,7 @@
           v-model="productDetails.price_condition"
           v-on:click="getIdsOfSelected($event)"
           class="form-control"
+          :readonly="isViewing"
         >
           <option value style="display:none">Select Price Condition</option>
           <option
@@ -118,6 +127,7 @@
           id="product_condition"
           v-model.trim="productDetails.product_condition"
           class="form-control"
+          :readonly="isViewing"
         >
           <option value style="display:none">Select Product Condition</option>
           <option
@@ -137,6 +147,7 @@
           class="form-control"
           v-model="productDetails.ad_category"
           v-on:click="getIdsOfSelected($event)"
+          :readonly="isViewing"
         >
           <option value style="display:none">Select Ads Category</option>
           <option
@@ -164,7 +175,13 @@
           Seller Type
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
-        <select name id="seller_type" v-model="productDetails.seller_type" class="form-control">
+        <select
+          name
+          id="seller_type"
+          v-model="productDetails.seller_type"
+          class="form-control"
+          :readonly="isViewing"
+        >
           <option value style="display:none">Select Seller Type</option>
           <option v-for="seller_type in seller_types" :key="seller_type">{{ seller_type }}</option>
         </select>
@@ -174,7 +191,13 @@
           Location
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
-        <input type="text" v-model="productDetails.location" id="location" class="form-control" />
+        <input
+          type="text"
+          :readonly="isViewing"
+          v-model="productDetails.location"
+          id="location"
+          class="form-control"
+        />
       </div>
       <div class="col-md-4 mb-2">
         <label for class="form-label">
@@ -187,6 +210,7 @@
           v-model="productDetails.city_name"
           class="form-control"
           v-on:click="getIdsOfSelected($event)"
+          :readonly="isViewing"
         >
           <option value style="display:none">Select City</option>
           <option v-for="city in cities" :data-id="city.id" :key="city.id">{{ city.city_name }}</option>
@@ -197,7 +221,13 @@
           Unites
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
-        <select name id="unit" v-model="productDetails.units" class="form-control">
+        <select
+          name
+          id="unit"
+          v-model="productDetails.units"
+          class="form-control"
+          :readonly="isViewing"
+        >
           <option value style="display:none">Select Unit</option>
           <option v-for="unit in unites" :key="unit">{{ unit }}</option>
         </select>
@@ -213,6 +243,7 @@
           id="payment_method"
           v-model="selected_payment_methods"
           class="form-control"
+          :readonly="isViewing"
         >
           <option value style="display:none">Payment Method</option>
           <option v-for="payment in payment_methods" :key="payment">{{ payment }}</option>
@@ -223,7 +254,13 @@
           Service Area
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
-        <select name id="service_area" v-model="productDetails.service_area" class="form-control">
+        <select
+          name
+          id="service_area"
+          v-model="productDetails.service_area"
+          class="form-control"
+          :readonly="isViewing"
+        >
           <option value style="display:none">Service Area</option>
           <option v-for="service_area in service_areas" :key="service_area">{{ service_area }}</option>
         </select>
@@ -233,7 +270,7 @@
           Tags
           <span class="text-danger" style="font-size:15px">*</span>
         </label>
-        <tagify :initialValue="tagifyValue" :onChange="onTagsChange" />
+        <tagify :initialValue="tagifyValue" :onChange="onTagsChange" :readonly="isViewing" />
       </div>
       <div class="col-md-12 mb-2">
         <label for class="form-label">
@@ -248,6 +285,7 @@
           class="form-control"
           placeholder="Enter Product Description..."
           v-model="productDetails.product_description"
+          :readonly="isViewing"
         ></textarea>
       </div>
       <!-- <div class="col-md-12 mb-2">
@@ -277,7 +315,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-12 text-center">
+      <div class="col-md-12 text-center" v-if="!isViewing">
         <button class="btn btn-primary m-2" v-on:click="SaveChanges()">Save Changes</button>
       </div>
     </div>
@@ -292,6 +330,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      isViewing: false,
       showAlert: {
         status: false,
         message: "",
@@ -381,7 +420,11 @@ export default {
     VueMultiImageUpload
   },
   created() {
-    var id = window.location.href.split("/").pop();
+    var urlParams = window.location.href.split("/");
+    let action = urlParams.pop();
+    if (action == "view") this.isViewing = true;
+    else this.isViewing = false;
+    let id = urlParams[urlParams.length - 1];
     this.getAdsDetails(id);
   },
   mounted() {

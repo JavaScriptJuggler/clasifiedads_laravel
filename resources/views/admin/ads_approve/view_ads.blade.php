@@ -14,14 +14,15 @@
                     </div>
                 </div>
                 <div class="row w-50">
-                    @if (count(unserialize($ads_approval_data->product_image)) > 0)
-                        @foreach (unserialize($ads_approval_data->product_image) as $item)
-                            <div class="col-md-2">
-                                <img src="{{ '/document_bucket/' . $item }}" alt="user-avatar"
-                                    class="d-block rounded mt-3"  height="100"
-                                    width="100" id="coverImage" />
-                            </div>
-                        @endforeach
+                    @if ($ads_approval_data->product_image != '')
+                        @if (count(unserialize($ads_approval_data->product_image)) > 0)
+                            @foreach (unserialize($ads_approval_data->product_image) as $item)
+                                <div class="col-md-2">
+                                    <img src="{{ '/document_bucket/' . $item }}" alt="user-avatar"
+                                        class="d-block rounded mt-3" height="100" width="100" id="coverImage" />
+                                </div>
+                            @endforeach
+                        @endif
                     @endif
                 </div>
             </div>

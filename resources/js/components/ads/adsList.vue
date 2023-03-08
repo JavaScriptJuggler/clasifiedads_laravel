@@ -100,7 +100,10 @@
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody class="table-border-bottom-0" v-if="(gettingDataOnLoad.adsListData.data)?.length">
+            <tbody
+              class="table-border-bottom-0"
+              v-if="(gettingDataOnLoad.adsListData.data)?.length"
+            >
               <tr :key="ad.id" v-for="ad in gettingDataOnLoad.adsListData.data">
                 <td>
                   <i class="fab fa-angular fa-lg text-danger me-3"></i>
@@ -115,13 +118,13 @@
                   <span class="badge" :style="{'background-color':ad.ads_color}">{{ad.ad_category}}</span>
                 </td>
                 <td>
-                  <a class="btn btn-warning btn-sm m-1" :href="'/admin/view-ads/'+ad.id">
+                  <a class="btn btn-warning btn-sm m-1" :href="'/admin/view-ads/'+ad.id+'/edit'">
                     <i class="bx bx-edit-alt"></i>
                   </a>
                   <button class="btn btn-danger btn-sm m-1" v-on:click="deleteAd(ad.id)">
                     <i class="bx bx-trash-alt"></i>
                   </button>
-                  <a class="btn btn-primary btn-sm m-1" :href="'/admin/view-ads/'+ad.id">
+                  <a class="btn btn-primary btn-sm m-1" :href="'/admin/view-ads/'+ad.id+'/view'">
                     <i class="bx bx-show"></i>
                   </a>
                 </td>
@@ -129,7 +132,10 @@
             </tbody>
             <tbody class="table-border-bottom-0" v-else>
               <tr>
-                <td colspan="8" class="text-center">Ads will be appeare here after approving by admin</td>
+                <td
+                  colspan="8"
+                  class="text-center"
+                >Ads will be appeare here after approving by admin</td>
               </tr>
             </tbody>
           </table>

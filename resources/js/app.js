@@ -19,11 +19,13 @@ import adsList from './components/ads/adsList.vue'
 import viewAds from './components/ads/viewAds.vue'
 import Tags from './components/partials/tagify.vue'
 import adsApproval from './components/ads_approval/adsApproval.vue'
+import Users from './components/users/users.vue'
 
 app.component('ads-list', adsList);
 app.component('view-ads', viewAds);
 app.component('tagify', Tags);
 app.component('ads-approval', adsApproval);
+app.component('users-list', Users);
 
 /**
  * The following block of code may be used to automatically register your
