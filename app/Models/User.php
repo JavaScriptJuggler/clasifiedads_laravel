@@ -30,7 +30,8 @@ class User extends Authenticatable
         'zip',
         'avatar',
         'city',
-        'business_name'
+        'business_name',
+        'business_hours',
     ];
 
     /**

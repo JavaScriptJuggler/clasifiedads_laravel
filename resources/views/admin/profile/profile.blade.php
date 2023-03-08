@@ -111,6 +111,10 @@
                                     <input type="text" class="form-control" id="zipCode" name="zipCode"
                                         placeholder="231465" required maxlength="6" value="{{ $user_details->zip }}" />
                                 </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="" class="form-label">Business Hours</label>
+                                    <div id="businessHoursContainer"></div>
+                                </div>
                                 {{-- <div class="mb-3 col-md-6">
                                         <label for="currency" class="form-label">Currency</label>
                                         <select id="currency" class="select2 form-select">
@@ -352,9 +356,28 @@
         </div>
     </div>
     <script>
+        var businessHoursManager = '';
+        $(document).ready(function() {
+            businessHoursManager = $("#businessHoursContainer").businessHours({
+                operationTime: {!! $user_details->business_hours !!} ,
+                postInit: function() {
+                    $('.operationTimeFrom, .operationTimeTill').timepicker({
+                        'timeFormat': 'h:i a',
+                        'step': 15
+                    });
+                },
+                dayTmpl: '<div class="dayContainer" style="width: 80px;">' +
+                    '<div data-original-title="" class="colorBox"><input type="checkbox" class="invisible operationState"></div>' +
+                    '<div class="weekday"></div>' +
+                    '<div class="operationDayTimeContainer">' +
+                    '<div class="operationTime input-group"><span class="input-group-addon"><i class="fa fa-sun-o"></i></span><input type="text" name="startTime" class="mini-time form-control operationTimeFrom" value=""></div>' +
+                    '<div class="operationTime input-group"><span class="input-group-addon"><i class="fa fa-moon-o"></i></span><input type="text" name="endTime" class="mini-time form-control operationTimeTill" value=""></div>' +
+                    '</div></div>'
+            });
+        });
         const formChangePassword = (e) => {
             e.preventDefault();
-            holdOn('Changinf Password...Please Wait');
+            holdOn('Changing Password...Please Wait');
             let formData = new FormData($('#formChangePassword')[0]);
             axios({
                     method: 'post',
@@ -418,6 +441,8 @@
         const submitProfileForm = (e) => {
             e.preventDefault();
             let formData = new FormData($('#formAccountSettings')[0]);
+            let business_hours = JSON.stringify(businessHoursManager.serialize());
+            formData.append('business_hours', business_hours);
             holdOn('Updating user profile...Please Wait !!!');
             axios({
                     method: 'post',

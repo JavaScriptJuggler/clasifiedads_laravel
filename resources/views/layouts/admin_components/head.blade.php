@@ -37,6 +37,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-misc.css') }}" />
     <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.2.17/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.businessHours.css') }}">
+    {{-- <link rel="stylesheet" href="<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />"> --}}
 </head>
 <style>
     #template-customizer {

@@ -19,9 +19,18 @@ class profileController extends Controller
 
     public function index()
     {
+        $user_details = Auth::user();
+        $openingHoursArray = [];
+        if ($user_details->business_hours != '' && $user_details->business_hours != null) {
+            $openongHours = json_decode($user_details->business_hours);
+            foreach ($openongHours as $key => $value) {
+                array_push($openingHoursArray, $value);
+            }
+            $user_details->business_hours = json_encode($openingHoursArray);
+        }
         view()->share([
             'page_name' => 'User Profile',
-            'user_details' => Auth::user(),
+            'user_details' => $user_details,
             'social_media' => socialMediaModel::where('user_id', Auth::id())->first(),
         ]);
         return view('admin.profile.profile');
@@ -44,6 +53,7 @@ class profileController extends Controller
         $user->city = $request->city;
         $user->zip = $request->zipCode;
         $user->address = $request->address;
+        $user->business_hours = $request->business_hours;
         if ($request->has('image'))
             $user->avatar = $imageLink;
         $isSuccess = $user->save();
