@@ -111,7 +111,8 @@
                     if (response.data.status) {
                         showToast('Success', response.data.message, 'success', true, 'green');
                         setTimeout(() => {
-                            window.location.href = '{{ route('ads-approve.index') }}';
+                            history.back();
+                            /* window.location.href = '{{ route('ads-approve.index') }}'; */
                         }, 3000);
                     } else {
                         showToast('Error', response.data.message, 'error', true, 'red');

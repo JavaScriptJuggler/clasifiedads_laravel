@@ -49,3 +49,7 @@ Breadcrumbs::for('users.show-approve-ad', function (BreadcrumbTrail $trail, $rec
     $trail->parent('users.show-user-details', $userid);
     $trail->push('Ad Details', route('users.show-approve-ad', ['recordid' => $recordid, 'action' => $action, 'userid' => $userid]));
 });
+Breadcrumbs::for('users.show-unapproved-ads', function (BreadcrumbTrail $trail, $recordid, $userid): void {
+    $trail->parent('users.show-user-details', $userid);
+    $trail->push('Ad Details', route('users.show-unapproved-ads', ['recordid' => $recordid, 'userid' => $userid]));
+});
