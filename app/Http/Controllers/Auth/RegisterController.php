@@ -68,8 +68,9 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'country'=>'India',
-            'user_type'=>'user',
+            'country' => 'India',
+            'user_type' => 'user',
+            'business_hours' => '[{"isActive":true,"timeFrom":"09:00 am","timeTill":"06:00 pm"},{"isActive":true,"timeFrom":"09:00 am","timeTill":"06:00 pm"},{"isActive":true,"timeFrom":"09:00 am","timeTill":"06:00 pm"},{"isActive":true,"timeFrom":"09:00 am","timeTill":"06:00 pm"},{"isActive":true,"timeFrom":"09:00 am","timeTill":"06:00 pm"},{"isActive":true,"timeFrom":"09:00 am","timeTill":"06:00 pm"},{"isActive":false,"timeFrom":null,"timeTill":null}]'
         ]);
     }
 }
