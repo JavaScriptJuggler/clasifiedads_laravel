@@ -75,9 +75,8 @@
         });
 
         const deleteRecord = (record_id) => {
-            holdOn('Deleting Approval Request...Please Wait');
             swal({
-                    title: "Are you sure?",
+                title: "Are you sure?",
                     text: "Once deleted, you will not be able to recover this record any more!",
                     icon: "warning",
                     buttons: true,
@@ -85,6 +84,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
+                        holdOn('Deleting Approval Request...Please Wait');
                         axios({
                                 method: 'post',
                                 url: '{{ url('/admin/ads-approve/delete-approval-request') }}',

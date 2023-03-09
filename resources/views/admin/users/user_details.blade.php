@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
+            <div class="tab-pane fade" style="overflow:auto;" id="navs-pills-top-profile" role="tabpanel">
                 <div
                     class="card-header container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3 mb-3">
                     <div>
@@ -153,7 +153,7 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="tab-pane fade" id="navs-pills-top-messages" role="tabpanel">
+            <div class="tab-pane fade" style="overflow:auto;" id="navs-pills-top-messages" role="tabpanel">
                 <div
                     class="card-header container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3 mb-3">
                     <div>
@@ -261,5 +261,69 @@
                 ]
             });
         });
+
+        const deleteApproveAd = (recordid) => {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you can be recover this record again !",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }).then(willDelete => {
+                if (willDelete) {
+                    holdOn('Deleting Ad...Please Wait');
+                    this.isLoading = true;
+                    let data = {
+                        recordId: recordid
+                    };
+                    axios
+                        .post("/admin/delete-ads", data)
+                        .then(response => {
+                            closeHoldOn();
+                            if (response.data.status) {
+                                window.location.reload();
+                            }
+                        })
+                        .catch(error => {});
+                }
+            });
+        }
+
+        const deleteUnApproveAd = (recordid) => {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record any more!",
+                icon: "warning",
+                buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        holdOn('Deleting Approval Request...Please Wait');
+                        axios({
+                                method: 'post',
+                                url: '{{ url('/admin/ads-approve/delete-approval-request') }}',
+                                data: {
+                                    id: recordid
+                                }
+                            })
+
+                            .then(response => {
+                                closeHoldOn();
+                                if (response.data.status) {
+                                    showToast('Success', response.data.message, 'success', true, 'green');
+                                }
+                                if (!response.data.status) {
+                                    showToast('Error!', response.data.message, 'error', true, 'red');
+                                }
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 3000);
+                            })
+
+                            .catch(error => console.log(error));
+                    }
+                });
+        }
     </script>
 @endsection

@@ -57,7 +57,7 @@ class usersController extends Controller
                 ->addColumn('action', function ($row) {
                     $actionBtn = '
                     <a class="edit btn btn-success btn-sm" href="' . route('users.show-approve-ad', ['recordid' => $row->id, 'action' => 'view', 'userid' => $row->user_id]) . '">View</a>
-                    <a href="javascript:void(0)" onclick=deleteRecord("' . $row->id . '") class="delete btn btn-danger btn-sm">Delete</a>';
+                    <a href="javascript:void(0)" onclick=deleteApproveAd("' . $row->id . '") class="delete btn btn-danger btn-sm">Delete</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -81,7 +81,7 @@ class usersController extends Controller
             ->addColumn('action', function ($row) {
                 $actionBtn = '
                 <a class="edit btn btn-success btn-sm" href="' . route('users.show-unapproved-ads', ['recordid' => $row->id, 'userid' => $row->user_id]) . '">View</a>
-                <a href="javascript:void(0)" onclick=deleteRecord("' . $row->id . '") class="delete btn btn-danger btn-sm">Delete</a>';
+                <a href="javascript:void(0)" onclick=deleteUnApproveAd("' . $row->id . '") class="delete btn btn-danger btn-sm">Delete</a>';
                 return $actionBtn;
             })
             ->rawColumns(['action'])

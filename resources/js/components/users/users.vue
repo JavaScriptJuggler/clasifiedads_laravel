@@ -2,6 +2,13 @@
   <div>
     <loading :active="isLoading" :can-cancel="true" :on-cancel="onCancel" :is-full-page="fullPage" />
     <div class="row">
+      <div class="col-md-12 mb-3">
+        <select name="user_type" id="user_type" style="float:right" class="form-control w-25">
+          <option value style="display:none">Select User Type</option>
+          <option value="free">Free</option>
+          <option value="paid">Paid</option>
+        </select>
+      </div>
       <div class="col-md-4 mb-3" v-for="user in userList.data" :key="user.id">
         <div class="card" style="border-radius: 15px; overflow:auto">
           <div class="card-body p-4">

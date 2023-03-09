@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    view()->share([
+        'page_name'=>'Home'
+    ]);
+    return view('frontend.clasified_ads');
 });
 Route::middleware(['auth', 'user-access:user'])->group(function () {
-    
 });
