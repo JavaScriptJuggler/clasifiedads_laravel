@@ -102,6 +102,7 @@ class adsApproveController extends Controller
                 'payment_mode' => $getAd->payment_mode,
                 'tags' => $getAd->tags,
                 'service_area' => $getAd->service_area,
+                'highlighits' => $getAd->highlighits,
             ];
             if ($getAd->main_ad_id != null || $getAd->main_ad_id != '') {
                 $getDataIsExist = adsModel::find($getAd->main_ad_id);

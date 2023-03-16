@@ -37,5 +37,6 @@ class adsApprovalModel extends Model
         'cover_image',
         'service_area',
         'main_ad_id',
+        'highlighits',
     ];
 }

@@ -274,6 +274,22 @@
       </div>
       <div class="col-md-12 mb-2">
         <label for class="form-label">
+          Product Highlighits
+          <span class="text-danger" style="font-size:15px">*</span>
+        </label>
+        <textarea
+          name
+          id="highlighits"
+          cols="30"
+          rows="10"
+          class="form-control"
+          placeholder="Enter Product Highlighits...By (,) comma saperating"
+          v-model="productDetails.highlighits"
+          :readonly="isViewing"
+        ></textarea>
+      </div>
+      <div class="col-md-12 mb-2">
+        <label for class="form-label">
           Product Description
           <span class="text-danger" style="font-size:15px">*</span>
         </label>

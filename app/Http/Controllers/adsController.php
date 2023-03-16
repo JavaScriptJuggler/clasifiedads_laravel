@@ -136,6 +136,7 @@ class adsController extends Controller
             'payment_mode' => implode(',', $payment_modes),
             'tags' => implode(',', $tags),
             'service_area' => $request->service_area,
+            'highlighits' => $request->highlighits,
         ];
 
         if (Auth::user()->user_type == 'admin')

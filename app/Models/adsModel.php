@@ -37,5 +37,6 @@ class adsModel extends Model
         'tags',
         'cover_image',
         'service_area',
+        'highlighits',
     ];
 }

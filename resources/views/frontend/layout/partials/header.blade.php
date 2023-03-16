@@ -8,7 +8,7 @@
                 <a href="{{ url('/') }}" class="header-logo">
                     <img src="{{ asset('frontend_assets/images/logo.png') }}" alt="logo">
                 </a>
-                <a href="{{ route('register') }}" class="header-widget header-user">
+                <a href="{{ route('login') }}" class="header-widget header-user">
                     <img src="{{ asset('frontend_assets/images/user.png') }}" alt="user">
                     <span>Login</span>
                 </a>
@@ -223,7 +223,7 @@
                         </div>
                     </li>
                 </ul> --}}
-                <a href="{{ route('login') }}" class="btn btn-inline post-btn">
+                <a href="{{ route('register') }}" class="btn btn-inline post-btn">
                     <i class="fas fa-plus-circle"></i>
                     <span>post your ad</span>
                 </a>

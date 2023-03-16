@@ -13,7 +13,7 @@ $('.suggest-slider').slick({
     speed: 1000,
     prevArrow: '<i class="fas fa-long-arrow-alt-right dandik"></i>',
     nextArrow: '<i class="fas fa-long-arrow-alt-left bamdik"></i>',
-    slidesToShow: 6,
+    slidesToShow: 10,
     slidesToScroll: 3,
     responsive: [
       {
@@ -150,7 +150,7 @@ $('.suggest-slider').slick({
       ]
     });
 
-  
+
 //========================================
 //          BLOG CARD SLIDER
 //========================================
@@ -161,7 +161,7 @@ $('.suggest-slider').slick({
     autoplay: true,
     arrows: true,
     fade: false,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     prevArrow: '<i class="fas fa-long-arrow-alt-right dandik"></i>',
     nextArrow: '<i class="fas fa-long-arrow-alt-left bamdik"></i>',
@@ -193,8 +193,8 @@ $('.suggest-slider').slick({
       }
     ]
   });
-  
-  
+
+
 //========================================
 //       AD DETAILS ITEM SLIDER
 //========================================
@@ -263,7 +263,7 @@ $('.feature-thumb-slider').slick({
     }
   ]
 });
-  
+
 
 //========================================
 //       AD LIST FEATURE SLIDER
@@ -317,7 +317,7 @@ $('.feature-thumb-slider').slick({
       }
     ]
   });
-    
+
 
 //========================================
 //         AD DETAILS SLIDER
@@ -342,7 +342,7 @@ $('.feature-thumb-slider').slick({
         }
     ]
   });
-  
+
   $('.ad-thumb-slider').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -379,7 +379,7 @@ $('.feature-thumb-slider').slick({
         }
     ]
   });
-    
+
 
 //========================================
 //       AD DETAILS FEATURE SLIDER
@@ -427,7 +427,7 @@ $('.feature-thumb-slider').slick({
         }
       ]
     });
-  
+
 
 //========================================
 //    AD DETAILS PAGE RELATED SLIDER

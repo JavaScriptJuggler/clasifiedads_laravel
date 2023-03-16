@@ -289,6 +289,11 @@
                     </select>
                 </div>
                 <div class="col mb-3">
+                    <label for="" class="form-label">Highilighits</label>
+                    <p class="text-muted">saperate highlighits by (,) comma</p>
+                    <textarea name="highlighits" class="form-control" id="highlighits" required cols="30" rows="5" placeholder="Enter Highlighits by Comma(,)"></textarea>
+                </div>
+                <div class="col mb-3">
                     <textarea name="description" required class="form-control" id="" cols="30" rows="5"
                         placeholder="Product Description"></textarea>
                 </div>
