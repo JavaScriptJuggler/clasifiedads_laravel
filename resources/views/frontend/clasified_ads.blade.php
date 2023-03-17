@@ -156,7 +156,7 @@
             </div>
 
             <div class="tab-pane active" id="ratings">
-                <div class="row p-5">
+                <div class="row p-lg-5 p-md-5">
                     @for ($i = 0; $i < 12; $i++)
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2">
                             <div class="product-card">
@@ -206,7 +206,7 @@
             </div> <!-- Rating ads -->
 
             <div class="tab-pane " id="advertiser">
-                <div class="row p-5">
+                <div class="row p-lg-5 p-md-5">
                     @for ($i = 0; $i < 12; $i++)
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2">
                             <div class="product-card">
@@ -256,52 +256,52 @@
             </div> <!-- Advertiser ads -->
 
             <div class="tab-pane" id="engaged">
-                <div class="row p-5">
+                <div class="row p-lg-5 p-md-5">
                     @for ($i = 0; $i < 12; $i++)
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/frontend_assets/images/product/13.jpg" alt="product">
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2">
+                            <div class="product-card">
+                                <div class="product-media">
+                                    <div class="product-img">
+                                        <img src="/frontend_assets/images/product/13.jpg" alt="product">
+                                    </div>
+                                    <div class="cross-vertical-badge product-badge">
+                                        <i class="fas fa-fire"></i>
+                                        <span>top niche</span>
+                                    </div>
+                                    <div class="product-type">
+                                        <span class="flat-badge booking">booking</span>
+                                    </div>
+                                    <ul class="product-action">
+                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
+                                        <li class="click"><i class="fas fa-mouse"></i><span>134</span></li>
+                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
+                                    </ul>
                                 </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
-                                </div>
-                                <div class="product-type">
-                                    <span class="flat-badge booking">booking</span>
-                                </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <li class="click"><i class="fas fa-mouse"></i><span>134</span></li>
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="#">Luxury</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">resort</li>
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href="ad-details-left.html">Lorem ipsum dolor sit amet consect adipisicing
-                                        elit</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Uttara, Dhaka</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">$1590<span>/per week</span></h5>
-                                    <div class="product-btn">
-                                        <a href="compare.html" title="Compare" class="fas fa-compress"></a>
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
+                                <div class="product-content">
+                                    <ol class="breadcrumb product-category">
+                                        <li><i class="fas fa-tags"></i></li>
+                                        <li class="breadcrumb-item"><a href="#">Luxury</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">resort</li>
+                                    </ol>
+                                    <h5 class="product-title">
+                                        <a href="ad-details-left.html">Lorem ipsum dolor sit amet consect adipisicing
+                                            elit</a>
+                                    </h5>
+                                    <div class="product-meta">
+                                        <span><i class="fas fa-map-marker-alt"></i>Uttara, Dhaka</span>
+                                        <span><i class="fas fa-clock"></i>30 min ago</span>
+                                    </div>
+                                    <div class="product-info">
+                                        <h5 class="product-price">$1590<span>/per week</span></h5>
+                                        <div class="product-btn">
+                                            <a href="compare.html" title="Compare" class="fas fa-compress"></a>
+                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endfor
+                    @endfor
                 </div>
             </div> <!-- Engaged ads -->
 
@@ -519,7 +519,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row p-5">
+            <div class="row p-lg-5 p-md-5">
                 <div class="col-lg-12">
                     <div class="niche-nav">
                         <ul class="nav nav-tabs">
@@ -532,7 +532,7 @@
             </div>
 
             <div class="tab-pane active" id="ratings1">
-                <div class="row p-5">
+                <div class="row p-lg-5 p-md-5">
                     @for ($i = 0; $i < 12; $i++)
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2">
                             <div class="product-card">
@@ -582,7 +582,7 @@
             </div> <!-- Rating ads -->
 
             <div class="tab-pane " id="advertiser1">
-                <div class="row p-5">
+                <div class="row p-lg-5 p-md-5">
                     @for ($i = 0; $i < 12; $i++)
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2">
                             <div class="product-card">
@@ -632,7 +632,7 @@
             </div> <!-- Advertiser ads -->
 
             <div class="tab-pane" id="engaged1">
-                <div class="row p-5">
+                <div class="row p-lg-5 p-md-5">
                     @for ($i = 0; $i < 12; $i++)
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-2">
                             <div class="product-card">
@@ -695,7 +695,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row p-5">
+            <div class="row p-lg-5 p-md-5">
                 <div class="col-md-9">
                     <div class="row">
                         @for ($i = 0; $i < 12; $i++)
@@ -727,7 +727,61 @@
             </div>
         </div>
     </section>
-
+    <section class="blog-part">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-center-heading">
+                        <h2>What Our <span>Customer Says</span></h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit aspernatur illum vel sunt libero
+                            voluptatum repudiandae veniam maxime tenetur.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-5">
+                <div class="col-lg-12">
+                    <div class="testimonial slider-arrow">
+                        @for ($i = 0; $i < 10; $i++)
+                            <div class="blog-card text-center">
+                                <div class="card">
+                                    <div class="card-body py-4 mt-2">
+                                        <div class="d-flex justify-content-center mb-4">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
+                                                class="rounded-circle shadow-1-strong" width="100" height="100" />
+                                        </div>
+                                        <h5 class="font-weight-bold">Teresa May</h5>
+                                        <h6 class="font-weight-bold my-3">Founder at ET Company</h6>
+                                        <ul class="list-unstyled d-flex justify-content-center">
+                                            <li>
+                                                <i class="fas fa-star fa-sm text-info"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-star fa-sm text-info"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-star fa-sm text-info"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-star fa-sm text-info"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-star-half-alt fa-sm text-info"></i>
+                                            </li>
+                                        </ul>
+                                        <p class="mb-2">
+                                            <i class="fas fa-quote-left pe-2"></i>Lorem ipsum dolor sit amet,
+                                            consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat
+                                            ad velit ab hic tenetur.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="section category-part">
         <div class="container">
             <div class="row">
